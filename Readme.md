@@ -3,5 +3,5 @@
 These are scripts that I have collected from the internet or put together myself.
 
 ```bash
-cd; curl -#L https://raw.githubusercontent.com/clburlison/scripts/master/boxen-bootstrap.sh .; ./boxen-bootstrap.sh
+cd; curl -O https://raw.githubusercontent.com/clburlison/scripts/master/boxen-bootstrap.sh; chmod 700 boxen-bootstrap.sh; ./boxen-bootstrap.sh
 ```

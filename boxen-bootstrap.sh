@@ -4,8 +4,27 @@ echo 'Click enter to cont.'
 read dummy
 xcode-select --install
 
+echo 'Wait until command line tools finished installing before continuing.'
+echo 'Click enter after it is complete'
 echo ' '
-echo 'This is your local admin password:'
+read dummy
+
+echo 'I have dependancies on files located on Dropbox.'
+echo 'Lets manually install Dropbox so we can start the sync process.'
+echo 'Enter your local admin password below (needed install Dropbox to /Applications):
+cd /tmp; curl -O https://dl.dropboxusercontent.com/s/tb6hybu5qothudx/Dropbox%202.8.0.dmg;
+hdiutil attach -nobrowse ./Dropbox%202.8.0.dmg
+sudo cp -R "/Volumes/Dropbox Installer/Dropbox.app" /Applications/
+# hdiutil detach "/Volumes/Dropbox Installer"
+rm Dropbox%202.8.0.dmg
+open /Applications/Dropbox.app
+echo 'After Dropbox has started syncing the files needed click enter to continue.'
+echo 'This will start the installation of boxen.'
+read dummy
+
+
+echo ' '
+echo 'Enter your local admin password below:'
 sudo mkdir -p /opt/boxen
 sudo chown ${USER}:admin /opt/boxen
 git clone https://github.com/clburlison/my-boxen.git /opt/boxen/repo

@@ -40,6 +40,6 @@ cd /opt/boxen/repo
 echo "You need to setup your shell profile to work with boxen. For me I need to setup my dotfiles."
 echo " "
 echo "Setup dotfiles with the following command:"
-echo "cd src/mine/dotfiles; ./bootstrap.sh"
+echo "cd ~/src/mine/dotfiles; ./bootstrap.sh"
 echo "boxen --env"
 read dummy

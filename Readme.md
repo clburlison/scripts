@@ -8,7 +8,8 @@ These are scripts that I have collected from the internet or put together myself
 * ``FileVault2Kickoff.sh`` is a script that will check to see if munkireport is installed and running on your Mac. If so and everything is configured correctly this script will then go through the process of enabling FileVault for a single user. This is essentially the same script from [here](https://github.com/munkireport/munkireport-php/blob/master/app/modules/filevault_escrow/script/Sample%20FileVault2%20Kickoff%20Script.sh).  
 * ``install_mutt.sh`` this will install homebrew and mutt (cli email client). Afterwards the script will setup an email account so you you can start using mutt immediately. Modifications should be made.
 * ``links-to-useful-apps.sh`` Apple likes to hide applications from standard users, which is fine until you need to find them. This script helps me find them by creating alias files to nice locations.  
-* ``LogicProX-audio-content.sh`` a bash script that downloads the LogicProX audio content. Need I saw more?  
+* ``LogicProX-audio-content.sh`` a bash script that downloads the LogicProX audio content. Need I say more?  
+* ``mountADNetworkHomeDrive.sh`` script that mounts Active Directory home share. Will need the network path modified to work in your environment.
 * ``removeSoftwareUpdateCatalogs.sh`` script that removes any custom Apple Software Update catalog preference files (any profiles should be removed manually).
 
 

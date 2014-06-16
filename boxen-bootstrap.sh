@@ -11,7 +11,7 @@ read dummy
 
 echo 'I have dependancies on files located on Dropbox.'
 echo 'Lets manually install Dropbox so we can start the sync process.'
-echo 'Enter your local admin password below (needed install Dropbox to /Applications):
+echo 'Enter your local admin password below (needed install Dropbox to /Applications):'
 cd /tmp; curl -O https://d1ilhw0800yew8.cloudfront.net/client/Dropbox%202.8.3.dmg;
 hdiutil attach -nobrowse ./Dropbox%202.8.3.dmg
 sudo cp -R "/Volumes/Dropbox Installer/Dropbox.app" /Applications/

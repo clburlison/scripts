@@ -1,0 +1,2 @@
+example:
+sudo asr restore -s /instadmg/OutputFiles/*.dmg -t /Volumes/MacintoshHD/ --erase --noprompt --noverify

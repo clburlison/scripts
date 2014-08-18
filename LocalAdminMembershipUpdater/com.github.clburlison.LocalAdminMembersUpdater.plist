@@ -10,7 +10,11 @@
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
-	<key>WatchPaths</key>
-	<array/>
+     <key>WatchPaths</key>
+     <array>
+       <string>/etc/resolv.conf</string>
+       <string>/Library/Preferences/SystemConfiguration/NetworkInterfaces.plist</string>
+       <string>/Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist</string>
+     </array>
 </dict>
 </plist>

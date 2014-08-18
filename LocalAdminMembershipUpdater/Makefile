@@ -3,7 +3,7 @@ include /usr/local/share/luggage/luggage.make
 
 TITLE=LocalAdminMembershipUpdater
 REVERSE_DOMAIN=com.github.clburlison
-PACKAGE_VERSION=1.3
+PACKAGE_VERSION=1.6
 PAYLOAD=\
 	pack_script \
 	pack-Library-LaunchDaemons-com.github.clburlison.LocalAdminMembersUpdater.plist \

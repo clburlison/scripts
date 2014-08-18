@@ -36,7 +36,7 @@ PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/libexec:/usr/local/bin export PATH
 ##################################################################################################################
 # Additional Array of quoted groups to check separated by spaces:
 # i.e. CUSTOMGROUPS=("Teachers" "Students" "Faculty" "MYDOMAIN\enterprise admins")
-CUSTOMGROUPS=()
+CUSTOMGROUPS=("BISD\All_Pinnacle")
 DCSERVER="domain_server"
 ##################################################################################################################
 
@@ -56,17 +56,18 @@ dscl . list /Users | grep -v "^_" | while read USERNAME; do
 		echo "The user $USERNAME is cached local user. Continuing."
 	fi
 	
-	# abort if we're not able to contact a configured directory server
- 	ping -c 1 -t 1 $DCSERVER  > /dev/null 2>&1
- 	if [ $? -eq 0 ]; then
- 		ONLOCALNETWORK=YES
-		echo "Computer is on the network: $ONLOCALNETWORK"
- 	else
- 		ONLOCALNETWORK=NO
-		echo "Computer is not on the network: $ONLOCALNETWORK"
-		echo "Exiting. We can not talk to the domain controller."
-		exit 1
-	fi
+	# # abort if we're not able to contact a configured directory server
+	# # for i in {1..7}; do ping -c1 $DCSERVER &> /dev/null && break; done
+	# ping -c 1 -t 1 $DCSERVER  > /dev/null 2>&1
+	#  	if [ $? -eq 0 ]; then
+	#  		ONLOCALNETWORK=YES
+	# 	echo "Computer is on the network: $ONLOCALNETWORK"
+	#  	else
+	#  		ONLOCALNETWORK=NO
+	# 	echo "Computer is not on the network: $ONLOCALNETWORK"
+	# 	echo "Exiting. We can not talk to the domain controller."
+	# 	exit 1
+	# fi
 	
 
 	# Set the default admin value which should be off
@@ -103,8 +104,9 @@ dscl . list /Users | grep -v "^_" | while read USERNAME; do
 		echo "Adding user $USERNAME to the local admin group!"
 		dseditgroup -o edit -a "$USERNAME" -t user -n /Local/Default admin	
 	else
-		echo "Removing user $USERNAME from the local admin group!"
-		dseditgroup -o edit -d "$USERNAME" -t user -n /Local/Default admin	
+		# echo "Removing user $USERNAME from the local admin group!"
+		# dseditgroup -o edit -d "$USERNAME" -t user -n /Local/Default admin
+		echo "Not removing $USERNAME from the local admin group"
 	fi
 done
 

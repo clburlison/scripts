@@ -10,5 +10,7 @@
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
+	<key>WatchPaths</key>
+	<array/>
 </dict>
 </plist>

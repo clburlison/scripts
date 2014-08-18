@@ -37,15 +37,15 @@ PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/libexec:/usr/local/bin export PATH
 # Additional Array of quoted groups to check separated by spaces:
 # i.e. CUSTOMGROUPS=("Teachers" "Students" "Faculty" "MYDOMAIN\enterprise admins")
 CUSTOMGROUPS=()
-DCSERVER="dccentral1.bisd.k12"
+DCSERVER="domain_server"
 ##################################################################################################################
 
 
 # Main Program Below
 ##################################################################################################################
 
-# enumerate through all possible logged in users. this shouldn't happen, but might handle the rare fast user switching case.
-users | tr " " "\n" | while read USERNAME; do
+# enumerate through all users.
+dscl . list /Users | grep -v "^_" | while read USERNAME; do
 	
 	# ignore local users, they shouldn't need to be modified
 	LOCALCHECK=`dscl /Local/Default -read /Users/"$USERNAME" AuthenticationAuthority | grep "LocalCachedUser"`
@@ -60,11 +60,11 @@ users | tr " " "\n" | while read USERNAME; do
  	ping -c 1 -t 1 $DCSERVER  > /dev/null 2>&1
  	if [ $? -eq 0 ]; then
  		ONLOCALNETWORK=YES
-		echo "Computer is on the AD network? $ONLOCALNETWORK"
+		echo "Computer is on the network: $ONLOCALNETWORK"
  	else
  		ONLOCALNETWORK=NO
-		echo "Computer is on the AD network? $ONLOCALNETWORK"
-		echo "Script is exiting. We can not talk to the domain controler."
+		echo "Computer is not on the network: $ONLOCALNETWORK"
+		echo "Exiting. We can not talk to the domain controller."
 		exit 1
 	fi
 	
@@ -92,7 +92,7 @@ users | tr " " "\n" | while read USERNAME; do
 		for i in ${CUSTOMGROUPS[@]}; do
 			if (dseditgroup -o checkmember -m "$USERNAME" "$i" > /dev/null); then
 				USERISADMIN=YES
-				echo "User $USERNAME found to be a member of the group $i from the custom admin group array cusomizable in this script."
+				echo "User $USERNAME found to be a member of the group $i from the custom admin group array customizable in this script."
 			fi
 		done
 	fi

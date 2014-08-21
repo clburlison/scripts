@@ -6,10 +6,9 @@ When using the AD-Plugin with OSX, group members in the "Allow administration by
 
 ![scripts](/LocalAdminMembershipUpdater/ad-plugin.png)
 
-Add any Custom Groups to the following variable ``CUSTOMGROUPS=()``. CustomGroups is for any group you want to have admin access without being in the "Allow administration by:" variable of the AD-Plugin.
+This script requires you to change the ``DCSERVER="domain_server"`` variable to a valid network server, normally use a domain controller since a DC is needed to verify admin group membership anyways. Optionally, add any Custom Groups to the following variable ``CUSTOMGROUPS=()``. CustomGroups is for any group you want to have admin access without being in the "Allow administration by:" variable of the AD-Plugin.
 
-Once the script has been ran successfully any Admin users that should have admin access with maintain admin access once off of the domain. Uncomment lines 107-108 if you wish to maintain the default behavior of OS X.
-
+Once the script has been ran successfully any Admin users that should have admin access will maintain admin access once off of the domain. Also, any user that has been removed from an AD Admin Group will be removed from the local admin group on the Mac once the script is ran successfully.
 
 This script needs to be ran as root. To automate the process I am providing a Makefile and LaunchDaemon. The LaunchDaemon, by default, is set to run on every network change which may need modification depending on your requirements. 
 

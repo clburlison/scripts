@@ -1,5 +1,5 @@
 #!/bin/sh
 
 # start here
-curl http://munkibuilds.org/latest.sh | sh
+curl https://munkibuilds.org/latest2.sh | sh
 exit 0

@@ -20,10 +20,10 @@ curl -fsSL https://raw.githubusercontent.com/clburlison/scripts/master/clburliso
 
 ####Run FileVault2Kickoff.sh
 ```bash
-curl -fsSL https://raw.githubusercontent.com/clburlison/scripts/master/clburlison_scripts/bash_osx/FileVault2Kickoff.sh | sh
+curl -fsSL https://raw.githubusercontent.com/clburlison/scripts/master/clburlison_scripts/osx/FileVault2Kickoff.sh | sh
 ```
 
 ####Run Power.sh
 ```bash
-curl -fsSL https://raw.githubusercontent.com/clburlison/scripts/master/clburlison_scripts/bash_osx/power.sh | sh
+curl -fsSL https://raw.githubusercontent.com/clburlison/scripts/master/clburlison_scripts/osx/power.sh | sh
 ```

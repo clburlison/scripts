@@ -16,12 +16,12 @@ As it stands this LaunchDaemon will run at System Load and then again at minute 
 ##Variables
 The variables for this script are listed below along with a brief description. 
 
-		DCSERVER="bisd.k12" 				# A domain server to check for connectivity
-		DOMAIN="BISD								# Your domain (see below)
-		keep1="/Users/techsupport" 	# User to keep without modification
-		keep2="/Users/Shared"				# User to keep without modification
-		keep3="/Users/teacher"			# User to keep without modification
-		setTime=1504060600					# Time in the future to run this script. Format = YearMonthDayHourMinute
+		DCSERVER="bisd.k12"		# A domain server to check for connectivity
+		DOMAIN="BISD			# Your domain (see below)
+		keep1="/Users/techsupport"	# User to keep without modification
+		keep2="/Users/Shared"		# User to keep without modification
+		keep3="/Users/teacher"		# User to keep without modification
+		setTime=1504060600		# Time in the future to run this script. Format = YearMonthDayHourMinute
 
 _Note:_ If you do not need three (3) keep users you can pass the script an empty string without issue.
 

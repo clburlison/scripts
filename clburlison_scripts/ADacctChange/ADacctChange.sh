@@ -10,9 +10,9 @@
 #  4) Check for access to an AD Server
 #  5) Search all local & Cached User Accounts on the current computer
 #  6) Check with the AD Server and if the "User logon name" is different from
-#     the Cached account with make the necessary changes on the Mac to update the account.
+#     the Cached account will make the necessary changes on the Mac to update the account.
 # 
-# When running this script you will see an error message on L171. This is
+# When running this script you will see an error message on L170. This is
 # an intentional code design error. The script decides what accounts to modify
 # based off of the $uniqueIDAD variable so if it errors on run I want to see the output. 
 # If it does not error then that user account will be skipped.
@@ -167,15 +167,13 @@ for a in $USERLIST ; do
     [[ "$a" == "$keep2" ]] && continue                    #skip account 2
     [[ "$a" == "$keep3" ]] && continue                    #skip account 3
 
-    # need the following varriable to be silent
     uniqueIDAD=`/usr/bin/dscl /Active\ Directory/$DOMAIN/All\ Domains -read $a UniqueID | awk '{ print $2 }'`
     if [ "$uniqueIDAD" == "source" ]; then
-        # we have bad data from dscl
         echo "We have received bad data from dscl. Now exiting."
         exit 0
     elif [ -z "$uniqueIDAD" ]; then    
         # The varraible is null. We need to modify the current Cached User:
-        # the following will be changed "Account Name" and "Home Directory"?(maybe).
+        # the following will be changed "Account Name" and "Home Directory".
         prefix="/Users/"
         old=${a#$prefix}
         echo "Old username is: " $old
@@ -191,13 +189,13 @@ for a in $USERLIST ; do
         /usr/bin/killall opendirectoryd
         sleep 10
 
-        # edit new user attributes on new user, using same passwd hash
+        # edit new user attributes, using same passwd hash
         /usr/bin/dscl . -change /Users/$old RecordName $old $new
         sleep 3
         /usr/bin/dscl . -change /Users/$new NFSHomeDirectory /Users/$old /Users/$new
         sleep 3
-
         /usr/bin/killall opendirectoryd
+        
         # Move Home Directory. Check if there's a home folder there already, if there is, exit before we wipe it
         if [ -f /Users/$new ]; then
             echo "Oops, theres a home folder there already for $new.\nIf you don't want that one, delete it in the Finder first,\nthen run this script again."
@@ -213,7 +211,7 @@ done
 
 ###################################################################################
 # 
-# Remove this script and launchDaemon. Lastly reboot the system.(?)
+# Remove this script and launchDaemon. Lastly reboot the system.
 # 
 ###################################################################################
 

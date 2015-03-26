@@ -3,7 +3,7 @@ include /usr/local/share/luggage/luggage.make
 
 TITLE=ADacctChange
 REVERSE_DOMAIN=com.github.clburlison
-PACKAGE_VERSION=1.0
+PACKAGE_VERSION=1.1
 PAYLOAD=\
 	pack_script \
 	pack-Library-LaunchDaemons-com.github.clburlison.ADacctChange.plist \

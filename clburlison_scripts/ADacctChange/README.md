@@ -3,10 +3,10 @@ ADacctChange
 
 So you have decided to change the account name of your users in Active Directory (AD). This project helps with the account migration from old account name to the new name along with home directory modification.
 
-Blog post with greater details: [https://clburlison.com/ADacctChange]() _coming soon_
+Blog post with greater details: [https://clburlison.com/ADacctChange]() (_coming soon_)
 
 #Script Notes
-When running this script you will see an error message on L171. This is an intentional code design error. The script decides what accounts to modify based off of the $uniqueIDAD variable so if it errors on run I want to see the output. If it does not error then that user account will be skipped.
+When running this script you will see an error message on [L170](./ADacctChange.sh#L170). This is an intentional code design error. The script decides what accounts to modify based off of the $uniqueIDAD variable so if it errors on run I want to see the output. If it does not error then that user account will be skipped.
 
 Hopefully all the check steps will verify data integrity before doing something harmful...but as always test in your environment.
 I hold no responsibility for broken systems.

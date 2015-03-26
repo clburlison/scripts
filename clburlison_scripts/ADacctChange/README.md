@@ -1,9 +1,9 @@
 ADacctChange
 ===
 
-So you have decided to change the account name of your users in Active Directory (AD). This project helps with the account migration from old account name to the new name along with home directory modification.
+So you have decided to change the account name of your users in Active Directory (AD). This project helps with the account migration from old account name to the new account name on Mac clients. This script also takes care of moving the home directory to the new shortname.
 
-Blog post with greater details: [https://clburlison.com/ADacctChange]() (_coming soon_)
+Blog post with greater details: [https://clburlison.com/ADacctChange](https://clburlison.com/ADacctChange) (_coming soon_)
 
 #Script Notes
 When running this script you will see an error message on [L170](./ADacctChange.sh#L170). This is an intentional code design error. The script decides what accounts to modify based off of the $uniqueIDAD variable so if it errors on run I want to see the output. If it does not error then that user account will be skipped.
@@ -45,6 +45,19 @@ This has only been tested on the following operating systems. Though 10.8 should
 
 ##Sample output
 
+Before code is time based active:
+
+	./ADacctChange.sh 
+	*** This application must be run as root. Please authenticate below. ***
+	Password:
+	It is not time to run this script. Now exiting.
+
+
+After code is active by $setTime:
+
+		./ADacctChange.sh 
+		*** This application must be run as root. Please authenticate below. ***
+		Password:
 		It is time to change the Active Directory Cached User Accounts on this system.
 		Computer is on the network: YES
 		<dscl_cmd> DS Error: -14136 (eDSRecordNotFound)
@@ -72,7 +85,7 @@ For one off cases (aka didn't get the package script installed before D-Day) use
 
 #Random Notes
 * On 10.7 and 10.9, users are still able to log in via their Cached AD account even when the computer is able to talk with the AD server(s).
-* On 10.10, users are unable to login on the computer via their Cached AD account or new login.
+* On 10.10, users are unable to login on the computer via their Cached AD account or new login once the computer has made contact with the AD server. The computer things the new user is already present on the system thanks to the UniqueID from AD but the Cached account will not authenticate with AD.
 * The below commands could be useful in the future and troubleshooting.	
 	
 		uniqueIDLocal=`/usr/bin/dscl /Local/Default -read $a UniqueID | awk '{ print $2 }'`

@@ -13,6 +13,9 @@ I hold no responsibility for broken systems.
 
 As it stands this LaunchDaemon will run at System Load and then again at minute 15, 30, 45, & 60. The goal is to make this change as quickly as possible and hopefully with minimal user down time. One big issue is if this script runs while a user is logged in...in my case I'm forcing a reboot. This might not be acceptable in other environments.
 
+##Interchangeable
+Windows and OS X have different names for the account records. In all examples below and in the code the ``Mac shortname == Windows User logon name``. From here on out if you see username, shortname, or logon name you should think of them as the same even though the values can be made different. 
+
 ##Variables
 The variables for this script are listed below along with a brief description. 
 
@@ -85,7 +88,7 @@ For one off cases (aka didn't get the package script installed before D-Day) use
 
 #Random Notes
 * On 10.7 and 10.9, users are still able to log in via their Cached AD account even when the computer is able to talk with the AD server(s).
-* On 10.10, users are unable to login on the computer via their Cached AD account or new login once the computer has made contact with the AD server. The computer things the new user is already present on the system thanks to the UniqueID from AD but the Cached account will not authenticate with AD.
+* On 10.10, users are unable to login on the computer via their Cached AD account or new login once the computer has made contact with the AD server. The computer thinks the newuseraccount is already present on the system due to it having the same UniqueID from AD. However the Cached account will not authenticate with AD since the login username has changed.
 * The below commands could be useful in the future and troubleshooting.	
 	
 		uniqueIDLocal=`/usr/bin/dscl /Local/Default -read $a UniqueID | awk '{ print $2 }'`

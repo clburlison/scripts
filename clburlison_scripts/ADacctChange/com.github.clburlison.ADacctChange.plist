@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.github.clburlison.ADacctChange.plist</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/Library/Scripts/ADacctChange.sh</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+  <key>StartCalendarInterval</key>
+  <array>
+    <dict>
+      <key>Minute</key>
+      <integer>15</integer>
+    </dict>
+    <dict>
+      <key>Minute</key>
+      <integer>30</integer>
+    </dict>
+    <dict>
+      <key>Minute</key>
+      <integer>45</integer>
+    </dict>
+    <dict>
+      <key>Minute</key>
+      <integer>60</integer>
+    </dict>
+  </array>
+</dict>
+</plist>

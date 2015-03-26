@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# https://github.com/rsaeks/scripts/
+# https://groups.google.com/d/msg/macenterprise/5spqde8b9A4/JyvL5iPaGS4J
 
 keep1="/Users/studentuser"
 keep2="/Users/admin"
@@ -8,6 +8,7 @@ keep3="/Users/Shared"
 keep4="/Users/teacher"
 keep5="/Users/Guest1"
 
+# Delete if the account is older than 30 days
 USERLIST=`find /Users -type d -maxdepth 1 -mindepth 1 -not -name "." -mtime +30`
 
 for a in $USERLIST ; do
@@ -18,3 +19,6 @@ for a in $USERLIST ; do
     [[ "$a" == "$keep5" ]] && continue                    #skip account 5
 	dscl . delete $a                                      #delete the account
 done
+
+# If you want to delete the home directories as well. Add the excluded users to the line below.
+# find /Users -type d -maxdepth 1 -mindepth 1 -not \( -name "*admin*" -o -name "*Shared*" \) -mtime +30 -exec rm -rf {} \;

@@ -53,13 +53,15 @@ This has only been tested on the following operating systems. Though 10.8 should
 		New username is:  clb
 		Home for cburlison now located at /Users/clb
 
-_Note:_Data has been modified in the above example to generalize the output. Hopefully you don't use the AD structure in the above example.
+_Note:_ Data has been modified in the above example to generalize the output. Hopefully you don't use the AD structure in the above example.
 
 ##Requires
 
 * The [luggage](https://github.com/unixorn/luggage) to build the package
 * A system restart to load the LaunchDaemon
 * A mac that is bound to a domain
+* An AD account that has had the profile username changed
+* The date to be past April 6th, 2015 6:00am. (default value)
 
 
 ##Run manually
@@ -71,7 +73,7 @@ For one off cases (aka didn't get the package script installed before D-Day) use
 #Random Notes
 * On 10.7 and 10.9, users are still able to log in via their Cached AD account even when the computer is able to talk with the AD server(s).
 * On 10.10, users are unable to login on the computer via their Cached AD account or new login.
-* The below commands could be useful in the future.	
+* The below commands could be useful in the future and troubleshooting.	
 	
 		uniqueIDLocal=`/usr/bin/dscl /Local/Default -read $a UniqueID | awk '{ print $2 }'`
 		/usr/bin/id -u clburlison

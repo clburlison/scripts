@@ -5,7 +5,19 @@ So you have decided to change the account name of your users in Active Directory
 
 Blog post with greater details: [https://clburlison.com/ADacctChange](https://clburlison.com/ADacctChange) (_coming soon_)
 
-#Script Notes
+#Table of Contents
+1. [Overview](#overview)
+2. [Interchangeable](#interchangeable)
+3. [Variables](#variables)
+    * [$DOMAIN](#domain)
+4. [Supported Operating Systems](#supported-operating-systems)
+5. [Sample output](#sample-output)
+6. [Requires](#requires)
+7. [Run manually](#run-manually)
+8. [Random Notes](#random-notes)
+
+
+#Overview
 When running this script you will see an error message on [L170](./ADacctChange.sh#L170). This is an intentional code design error. The script decides what accounts to modify based off of the $uniqueIDAD variable so if it errors on run I want to see the output. If it does not error then that user account will be skipped.
 
 Hopefully all the check steps will verify data integrity before doing something harmful...but as always test in your environment.
@@ -18,20 +30,20 @@ As it stands this LaunchDaemon will run at System Load and then again at minute 
 ##Interchangeable
 Windows and OS X have different names for the account records. In all examples below and in the code the:
  
-		Mac shortname == Windows User logon name.
+	Mac shortname == Windows User logon name.
  
  From here on out if you see username, shortname, or login you should think of them as the same even though the values can be made different. 
 
 ##Variables
 The variables for this script are listed below along with a brief description. 
 
-		DCSERVER="bisd.k12"		# A domain server to check for connectivity
-		DOMAIN="BISD			# Your domain (see below)
-		keep1="/Users/techsupport"	# User to keep without modification
-		keep2="/Users/Shared"		# User to keep without modification
-		keep3="/Users/teacher"		# User to keep without modification
-		setTime=1504060600		# Time in the future to run this script. Format = YearMonthDayHourMinute
-		msg="Some display message"		# Display a message via BigHonkingText to end user
+	DCSERVER="bisd.k12"		# A domain server to check for connectivity
+	DOMAIN="BISD			# Your domain (see below)
+	keep1="/Users/techsupport"	# User to keep without modification
+	keep2="/Users/Shared"		# User to keep without modification
+	keep3="/Users/teacher"		# User to keep without modification
+	setTime=1504060600		# Time in the future to run this script. Format = YearMonthDayHourMinute
+	msg="Some display message"		# Display a message via BigHonkingText to end user
 
 _Note:_ If you do not need three (3) keep users you can pass the script an empty string without issue.
 
@@ -46,7 +58,7 @@ To find your Domain:
 	/Active Directory > ls
 	domain_name_output_here
 
-##Supported OS
+##Supported Operating Systems
 This has only been tested on the following operating systems. Though 10.8 should work I have not tested. I no longer support those machines in my environment.
 
 * 10.7
@@ -65,16 +77,16 @@ Before code is time based active:
 
 After code is active by $setTime:
 
-		./ADacctChange.sh 
-		*** This application must be run as root. Please authenticate below. ***
-		Password:
-		It is time to change the Active Directory Cached User Accounts on this system.
-		Computer is on the network: YES
-		<dscl_cmd> DS Error: -14136 (eDSRecordNotFound)
-		Old username is:  cburlison
-		Cached UID is:  123456789
-		New username is:  clb
-		Home for cburlison now located at /Users/clb
+	./ADacctChange.sh 
+	*** This application must be run as root. Please authenticate below. ***
+	Password:
+	It is time to change the Active Directory Cached User Accounts on this system.
+	Computer is on the network: YES
+	<dscl_cmd> DS Error: -14136 (eDSRecordNotFound)
+	Old username is:  cburlison
+	Cached UID is:  123456789
+	New username is:  clb
+	Home for cburlison now located at /Users/clb
 
 _Note:_ Data has been modified in the above example to generalize the output. Hopefully you don't use the AD structure in the above example.
 
@@ -94,7 +106,7 @@ If a user is logged in or if the launchDaemon launches the ``ADacctChange.sh`` s
 ##Run manually
 For one off cases (aka didn't get the package script installed before D-Day) use the following one-liner:
 
-		curl -fsSL https://raw.githubusercontent.com/clburlison/scripts/master/clburlison_scripts/ADacctChange/ADacctChange.sh | sh
+	curl -fsSL https://raw.githubusercontent.com/clburlison/scripts/master/clburlison_scripts/ADacctChange/ADacctChange.sh | sh
 
 
 #Random Notes
@@ -102,14 +114,14 @@ For one off cases (aka didn't get the package script installed before D-Day) use
 * On 10.10, users are unable to login on the computer via their Cached AD account or new login once the computer has made contact with the AD server. The computer thinks the newuseraccount is already present on the system due to it having the same UniqueID from AD. However the Cached account will not authenticate with AD since the login username has changed.
 * The below commands could be useful in the future and troubleshooting.	
 	
-		uniqueIDLocal=`/usr/bin/dscl /Local/Default -read $a UniqueID | awk '{ print $2 }'`
-		/usr/bin/id -u clburlison
-		/usr/bin/dscl -plist . readall /users 
-		/usr/bin/dscl /Active\ Directory/BISD/All\ Domains -read $a dsAttrTypeNative:employeeID | awk '{ print $2 }'
-		/usr/bin/dscl /Active\ Directory/BISD/All\ Domains -read $a RecordName | awk '{ print $2 }'
-		/usr/bin/dscl /Search -search /Users uid 1774687581
-		/usr/bin/dscl -plist . readall /users
-		/usr/bin/dscl . -append /Users/$ShortName RecordName $newShortName
-		/usr/bin/dscl . -change /Users/$ShortName RealName $ShortName $newShortName
-		/usr/bin/dscl . -list /Users
-		last |grep "logged in"
+	uniqueIDLocal=`/usr/bin/dscl /Local/Default -read $a UniqueID | awk '{ print $2 }'`
+	/usr/bin/id -u clburlison
+	/usr/bin/dscl -plist . readall /users 
+	/usr/bin/dscl /Active\ Directory/BISD/All\ Domains -read $a dsAttrTypeNative:employeeID | awk '{ print $2 }'
+	/usr/bin/dscl /Active\ Directory/BISD/All\ Domains -read $a RecordName | awk '{ print $2 }'
+	/usr/bin/dscl /Search -search /Users uid 1774687581
+	/usr/bin/dscl -plist . readall /users
+	/usr/bin/dscl . -append /Users/$ShortName RecordName $newShortName
+	/usr/bin/dscl . -change /Users/$ShortName RealName $ShortName $newShortName
+	/usr/bin/dscl . -list /Users
+	last |grep "logged in"

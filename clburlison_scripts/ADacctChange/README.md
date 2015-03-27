@@ -113,14 +113,14 @@ For one off cases (aka didn't get the package script installed before D-Day) use
 * On 10.10, users are unable to login on the computer via their Cached AD account or new login once the computer has made contact with the AD server. The computer thinks the newuseraccount is already present on the system due to it having the same UniqueID from AD. However the Cached account will not authenticate with AD since the login username has changed.
 * The below commands could be useful in the future and troubleshooting.	
 	
-	uniqueIDLocal=`/usr/bin/dscl /Local/Default -read $a UniqueID | awk '{ print $2 }'`
-	/usr/bin/id -u clburlison
-	/usr/bin/dscl -plist . readall /users 
-	/usr/bin/dscl /Active\ Directory/BISD/All\ Domains -read $a dsAttrTypeNative:employeeID | awk '{ print $2 }'
-	/usr/bin/dscl /Active\ Directory/BISD/All\ Domains -read $a RecordName | awk '{ print $2 }'
-	/usr/bin/dscl /Search -search /Users uid 1774687581
-	/usr/bin/dscl -plist . readall /users
-	/usr/bin/dscl . -append /Users/$ShortName RecordName $newShortName
-	/usr/bin/dscl . -change /Users/$ShortName RealName $ShortName $newShortName
-	/usr/bin/dscl . -list /Users
-	last |grep "logged in"
+		uniqueIDLocal=`/usr/bin/dscl /Local/Default -read $a UniqueID | awk '{ print $2 }'`
+		/usr/bin/id -u clburlison
+		/usr/bin/dscl -plist . readall /users 
+		/usr/bin/dscl /Active\ Directory/BISD/All\ Domains -read $a dsAttrTypeNative:employeeID | awk '{ print $2 }'
+		/usr/bin/dscl /Active\ Directory/BISD/All\ Domains -read $a RecordName | awk '{ print $2 }'
+		/usr/bin/dscl /Search -search /Users uid 1774687581
+		/usr/bin/dscl -plist . readall /users
+		/usr/bin/dscl . -append /Users/$ShortName RecordName $newShortName
+		/usr/bin/dscl . -change /Users/$ShortName RealName $ShortName $newShortName
+		/usr/bin/dscl . -list /Users
+		last |grep "logged in"

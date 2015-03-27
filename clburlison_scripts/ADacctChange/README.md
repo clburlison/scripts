@@ -18,7 +18,7 @@ Blog post with greater details: [https://clburlison.com/ADacctChange](https://cl
 
 
 #Overview
-When running this script you will see an error message from the output of [L170](./ADacctChange.sh#L170). This is an intentional code design error. The script decides what accounts to modify based off of the $uniqueIDAD variable so if it errors on run I want to see the output. If it does not error then that user account will be skipped.
+When running this script you will see an error message from the output of [L170](./ADacctChange.sh#L170). This is an intentional code design error. The script decides what accounts to modify based off of the ``$uniqueIDAD`` variable so if it errors on run I want to see the output. If it does not error then that user account will be skipped.
 
 Hopefully all the check steps will verify data integrity before doing something harmful...but as always test in your environment.
 I hold no responsibility for broken systems.
@@ -67,15 +67,14 @@ This has only been tested on the following operating systems. Though 10.8 should
 
 ##Sample output
 
-Before code is time based active:
+If you run the code while the ``$setTime`` variable points to a future time/date, you will see the following:
 
 	./ADacctChange.sh 
 	*** This application must be run as root. Please authenticate below. ***
 	Password:
 	It is not time to run this script. Now exiting.
 
-
-After code is active by $setTime:
+If you run the code while the ``$setTime`` variable points to a past time/date, you will see the following:
 
 	./ADacctChange.sh 
 	*** This application must be run as root. Please authenticate below. ***
@@ -88,9 +87,9 @@ After code is active by $setTime:
 	New username is:  clb
 	Home for cburlison now located at /Users/clb
 
-_Note:_ Data has been modified in the above example to generalize the output. Hopefully you don't use the AD structure in the above example.
+_Note:_ Data has been modified in the above example to generalize the output.
 
-If a user is logged in or if the launchDaemon launches the ``ADacctChange.sh`` script while at the login window, the following text will be displayed via BigHonkingText:
+If a user is logged in or if the launchDaemon launches the ``ADacctChange.sh`` script while at the loginwindow, the following text will be displayed via BigHonkingText:
 
 ![display_msg](./Display_msg.png)
 
@@ -98,9 +97,9 @@ If a user is logged in or if the launchDaemon launches the ``ADacctChange.sh`` s
 
 * The [luggage](https://github.com/unixorn/luggage) to build the package
 * A system restart to load the LaunchDaemon
-* A mac that is bound to a domain
-* An AD account that has had the profile username changed
-* The date to be past April 6th, 2015 6:00am. (default value)
+* A mac that is bound to an Active Directory domain
+* An AD account that has had the User logon name changed
+* The current system time/date to be past April 6th, 2015 6:00am. (default value)
 
 
 ##Run manually

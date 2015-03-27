@@ -18,7 +18,7 @@ Blog post with greater details: [https://clburlison.com/ADacctChange](https://cl
 
 
 #Overview
-When running this script you will see an error message from the output of [L170](./ADacctChange.sh#L170). This is an intentional code design error. The script decides what accounts to modify based off of the ``$uniqueIDAD`` variable so if it errors on run I want to see the output. If it does not error then that user account will be skipped.
+When running this script you will see an error message from the output of [L185](./ADacctChange.sh#L185). This is an intentional code design error. The script decides what accounts to modify based off of the ``$uniqueIDAD`` variable so if it errors on run I want to see the output. If it does not error then that user account will be skipped.
 
 Hopefully all the check steps will verify data integrity before doing something harmful...but as always test in your environment.
 I hold no responsibility for broken systems.
@@ -39,13 +39,8 @@ The variables for this script are listed below along with a brief description.
 
 	DCSERVER="bisd.k12"		# A domain server to check for connectivity
 	DOMAIN="BISD			# Your domain (see below)
-	keep1="/Users/techsupport"	# User to keep without modification
-	keep2="/Users/Shared"		# User to keep without modification
-	keep3="/Users/teacher"		# User to keep without modification
 	setTime=1504060600		# Time in the future to run this script. Format = YearMonthDayHourMinute
 	msg="Some display message"		# Display a message via BigHonkingText to end user
-
-_Note:_ If you do not need three (3) keep users you can pass the script an empty string without issue.
 
 ###$DOMAIN
 The following is an interactive prompt to find the current domain name for the ``$DOMAIN`` variable.
@@ -84,8 +79,8 @@ If you run the code while the ``$setTime`` variable points to a past time/date, 
 	<dscl_cmd> DS Error: -14136 (eDSRecordNotFound)
 	Old username is:  cburlison
 	Cached UID is:  123456789
-	New username is:  clb
-	Home for cburlison now located at /Users/clb
+	New username is:  b12345
+	Home for b12345 now located at /Users/b12345
 
 _Note:_ Data has been modified in the above example to generalize the output.
 

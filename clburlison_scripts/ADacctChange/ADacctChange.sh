@@ -4,15 +4,15 @@
 #
 # ADacctChange.sh
 # This script will:
-#  1) Wait for a specific point in the future before running
-#  2) Check if bound to an AD Server
-#  3) Check for an active network connection
+#  1) Wait for a specific time/date in the future before running
+#  2) Check for an active network connection
+#  3) Check if bound to an AD Server
 #  4) Check for access to an AD Server
 #  5) Search all local & Cached User Accounts on the current computer
-#  6) Check with the AD Server and if the "User logon name" is different from
-#     the Cached account will make the necessary changes on the Mac to update the account.
+#  6) Check with the AD Server and see if the "User logon name" is different from
+#     the Cached "User logon name". Make the necessary changes to Cached Accounts.
 # 
-# When running this script you will see an error message on L170. This is
+# When running this script you will see an error message on L185. This is
 # an intentional code design error. The script decides what accounts to modify
 # based off of the $uniqueIDAD variable so if it errors on run I want to see the output. 
 # If it does not error then that user account will be skipped.
@@ -54,10 +54,6 @@
 
 DCSERVER="bisd.k12"
 DOMAIN="BISD"
-# User accounts you do not want to modify.
-keep1="/Users/techsupport"
-keep2="/Users/Shared"
-keep3="/Users/teacher"
 setTime=1504060600
 msg="Currently applying a Critical patch. The system will reboot when finished."
 
@@ -178,19 +174,21 @@ fi
 
 USERLIST=`find /Users -type d -maxdepth 1 -mindepth 1 -not -name "."`
 for a in $USERLIST ; do
-    [[ "$a" == "$keep1" ]] && continue                    #skip account 1
-    [[ "$a" == "$keep2" ]] && continue                    #skip account 2
-    [[ "$a" == "$keep3" ]] && continue                    #skip account 3
-
+    [[ "$a" == "/Users/Shared" ]] && continue # Do not modify the Shared Folder
+    
+    # Do not modify any local account with UID between 500-1000
+    prefix="/Users/"
+    old=${a#$prefix}
+    OldID=`id -u $old`
+    [ "$OldID" -ge 500 -a "$OldID" -le 1000 ] && continue
+    
     uniqueIDAD=`/usr/bin/dscl /Active\ Directory/$DOMAIN/All\ Domains -read $a UniqueID | awk '{ print $2 }'`
     if [ "$uniqueIDAD" == "source" ]; then
         echo "We have received bad data from dscl. Now exiting."
         exit 0
-    elif [ -z "$uniqueIDAD" ]; then    
+    elif [ -z "$uniqueIDAD" ]; then
         # The varraible is null. We need to modify the current Cached User:
         # the following will be changed "Account Name" and "Home Directory".
-        prefix="/Users/"
-        old=${a#$prefix}
         echo "Old username is: " $old
         CachedUID=`/usr/bin/id -u $old`
         echo "Cached UID is: " $CachedUID
@@ -198,7 +196,7 @@ for a in $USERLIST ; do
         # Get new username as a variable from the Domain
         new=`/usr/bin/dscl /Active\ Directory/$DOMAIN/All\ Domains -search /Users UniqueID $CachedUID | awk 'NR==1{print $1; exit}'`
         echo "New username is: " $new
-        
+
         # Move the old AD account to the new Account name. Essentially creating a new user account.
         /bin/mv /var/db/dslocal/nodes/Default/users/$old.plist /var/db/dslocal/nodes/Default/users/$new.plist
         /usr/bin/killall opendirectoryd
@@ -210,7 +208,7 @@ for a in $USERLIST ; do
         /usr/bin/dscl . -change /Users/$new NFSHomeDirectory /Users/$old /Users/$new
         sleep 3
         /usr/bin/killall opendirectoryd
-        
+
         # Move Home Directory. Check if there's a home folder there already, if there is, exit before we wipe it
         if [ -f /Users/$new ]; then
             echo "Oops, theres a home folder there already for $new.\nIf you don't want that one, delete it in the Finder first,\nthen run this script again."
@@ -230,7 +228,7 @@ done
 # 
 ###################################################################################
 
-/bin/rm /Library/LaunchDaemons/com.github.clburlison.ADacctChange.plist
-/bin/rm $0
-
-/sbin/reboot
+# /bin/rm /Library/LaunchDaemons/com.github.clburlison.ADacctChange.plist
+# /bin/rm $0
+#
+# /sbin/reboot

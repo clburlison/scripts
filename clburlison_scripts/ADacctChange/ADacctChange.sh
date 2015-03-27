@@ -228,7 +228,7 @@ done
 # 
 ###################################################################################
 
-# /bin/rm /Library/LaunchDaemons/com.github.clburlison.ADacctChange.plist
-# /bin/rm $0
-#
-# /sbin/reboot
+/bin/rm /Library/LaunchDaemons/com.github.clburlison.ADacctChange.plist
+/bin/rm $0
+
+/sbin/reboot

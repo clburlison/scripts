@@ -59,6 +59,7 @@ keep1="/Users/techsupport"
 keep2="/Users/Shared"
 keep3="/Users/teacher"
 setTime=1504060600
+msg="Currently applying a Critical patch. The system will reboot when finished."
 
 ###################################################################################
 # 
@@ -153,6 +154,20 @@ else
 	echo "Exiting. We cannot talk to the domain controller."
 	exit 1
 fi
+
+
+###################################################################################
+# 
+# Display text using BigHonkingText to inform the user that the machine will
+# reboot shortly. If BigHonkingText is not present don't run the following.
+#
+###################################################################################
+
+if [ -e "/usr/local/bin/BigHonkingText" ]; then
+  echo "BigHonkingText is on this system."
+  /usr/local/bin/BigHonkingText -w 90% -h 20% -m -p 120 $msg >>/dev/null 2>&1 &
+fi
+
 
 ###################################################################################
 # 

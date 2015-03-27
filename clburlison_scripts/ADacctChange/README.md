@@ -13,6 +13,8 @@ I hold no responsibility for broken systems.
 
 As it stands this LaunchDaemon will run at System Load and then again at minute 15, 30, 45, & 60. The goal is to make this change as quickly as possible and hopefully with minimal user down time. One big issue is if this script runs while a user is logged in...in my case I'm forcing a reboot. This might not be acceptable in other environments.
 
+
+
 ##Interchangeable
 Windows and OS X have different names for the account records. In all examples below and in the code the:
  
@@ -29,6 +31,7 @@ The variables for this script are listed below along with a brief description.
 		keep2="/Users/Shared"		# User to keep without modification
 		keep3="/Users/teacher"		# User to keep without modification
 		setTime=1504060600		# Time in the future to run this script. Format = YearMonthDayHourMinute
+		msg="Some display message"		# Display a message via BigHonkingText to end user
 
 _Note:_ If you do not need three (3) keep users you can pass the script an empty string without issue.
 
@@ -74,6 +77,10 @@ After code is active by $setTime:
 		Home for cburlison now located at /Users/clb
 
 _Note:_ Data has been modified in the above example to generalize the output. Hopefully you don't use the AD structure in the above example.
+
+If a user is logged in or if the launchDaemon launches the ``ADacctChange.sh`` script while at the login window, the following text will be displayed via BigHonkingText:
+
+![display_msg](./Display_msg.png)
 
 ##Requires
 

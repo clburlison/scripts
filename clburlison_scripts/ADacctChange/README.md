@@ -3,7 +3,7 @@ ADacctChange
 
 So you have decided to change the account name of your users in Active Directory (AD). This project helps with the account migration from old account name to the new account name on Mac clients. This script also takes care of moving the home directory to the new shortname.
 
-Blog post with greater details: [https://clburlison.com/ADacctChange](https://clburlison.com/ADacctChange) (_coming soon_)
+Blog post with greater details: [https://clburlison.com/ADacctChange](https://clburlison.com/ADacctChange)
 
 #Table of Contents
 1. [Overview](#overview)

@@ -2,7 +2,7 @@
 
 # https://groups.google.com/d/msg/macenterprise/5spqde8b9A4/JyvL5iPaGS4J
 
-keep1="/Users/studentuser"
+keep1="/Users/techsupport"
 keep2="/Users/admin"
 keep3="/Users/Shared"
 keep4="/Users/teacher"

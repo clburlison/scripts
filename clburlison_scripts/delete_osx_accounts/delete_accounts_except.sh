@@ -17,7 +17,7 @@ for a in $USERLIST ; do
     [[ "$a" == "$keep3" ]] && continue                    #skip account 3
     [[ "$a" == "$keep4" ]] && continue                    #skip account 4
     [[ "$a" == "$keep5" ]] && continue                    #skip account 5
-	dscl . delete $a                                      #delete the account
+    dscl . delete $a                                      #delete the account
 done
 
 # If you want to delete the home directories as well. Add the excluded users to the line below.

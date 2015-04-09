@@ -13,17 +13,12 @@ _All files provided as is. You run it. You break it. You fix it. I hold no respo
 ---
 _Shortcuts:_
 
-####Run boxen-bootstrap.sh
-```bash
-curl -fsSL https://raw.githubusercontent.com/clburlison/scripts/master/clburlison_scripts/personal/boxen-bootstrap.sh | sh
-```
-
 ####Run FileVault2Kickoff.sh
 ```bash
-curl -fsSL https://raw.githubusercontent.com/clburlison/scripts/master/clburlison_scripts/osx/FileVault2Kickoff.sh | sh
+curl -fsSL https://raw.githubusercontent.com/clburlison/scripts/master/clburlison_scripts/FileVault2Kickoff/FileVault2Kickoff.sh | sh
 ```
 
 ####Run Power.sh
 ```bash
-curl -fsSL https://raw.githubusercontent.com/clburlison/scripts/master/clburlison_scripts/osx/power.sh | sh
+curl -fsSL https://raw.githubusercontent.com/clburlison/scripts/master/clburlison_scripts/power_info/power.sh | sh
 ```

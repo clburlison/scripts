@@ -22,3 +22,13 @@ curl -fsSL https://raw.githubusercontent.com/clburlison/scripts/master/clburliso
 ```bash
 curl -fsSL https://raw.githubusercontent.com/clburlison/scripts/master/clburlison_scripts/power_info/power.sh | sh
 ```
+
+####Run delete_accounts_except.sh
+```bash
+curl -fsSL https://raw.githubusercontent.com/clburlison/scripts/master/clburlison_scripts/delete_osx_accounts/delete_accounts_except.sh | sh
+```
+
+####Run remove_keychains_all_users.sh
+```bash
+curl -fsSL curl -fsSL https://raw.githubusercontent.com/clburlison/scripts/master/clburlison_scripts/remove_keychains_all_users/remove_keychains_all_users.sh | sh | sh
+```

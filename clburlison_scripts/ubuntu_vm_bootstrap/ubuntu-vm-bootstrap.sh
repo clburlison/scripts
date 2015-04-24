@@ -15,14 +15,11 @@ sed -i -e 's/%sudo  ALL=(ALL:ALL) ALL/%sudo  ALL=NOPASSWD:ALL/g' /etc/sudoers
 ###
 sudo apt-get -y install open-vm-tools-desktop
 
-
-
 ###
 # ssh service
 ###
 sudo apt-get -y install openssh-client
 sudo apt-get -y install openssh-server
-
 
 ###
 # ssh keys for ladmin account
@@ -33,6 +30,12 @@ wget --no-check-certificate \
     -O /home/ladmin/.ssh/authorized_keys
 chown -R ladmin /home/ladmin/.ssh
 chmod -R go-rwsx /home/ladmin/.ssh
+
+###
+# Display IP address at load prompt
+###
+sudo IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
+sudo echo "eth0 IP: $IP" > /etc/issue
 
 ###
 # clean up

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>4E855A59-0A96-3810-9467-2BD04630A70B</key>
+	<dict>
+		<key>ICADeviceTypeKey</key>
+		<string>ICADeviceTypeCamera</string>
+		<key>autolaunchApplicationPath</key>
+		<string></string>
+	</dict>
+	<key>HotPlugActionPath</key>
+	<string></string>
+	<key>LastHotPlugActionPath</key>
+	<string></string>
+</dict>
+</plist>

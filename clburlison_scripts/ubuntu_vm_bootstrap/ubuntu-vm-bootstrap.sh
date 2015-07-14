@@ -3,12 +3,11 @@
 ###
 # initial updates
 ###
-apt-get update
-apt-get -y upgrade
-apt-get -y install linux-headers-$(uname -r)
+sudo apt-get update
+sudo apt-get -y upgrade
+sudo apt-get -y install linux-headers-$(uname -r)
 
-sed -i -e '/Defaults\s\+env_reset/a Defaults\texempt_group=sudo' /etc/sudoers
-sed -i -e 's/%sudo  ALL=(ALL:ALL) ALL/%sudo  ALL=NOPASSWD:ALL/g' /etc/sudoers
+sudo echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
 
 ###
 # vmware tools for ubuntu
@@ -20,6 +19,7 @@ sudo apt-get -y install open-vm-tools-desktop
 ###
 sudo apt-get -y install openssh-client
 sudo apt-get -y install openssh-server
+sudo /etc/init.d/ssh restart
 
 ###
 # ssh keys for ladmin account
@@ -30,12 +30,6 @@ wget --no-check-certificate \
     -O /home/ladmin/.ssh/authorized_keys
 chown -R ladmin /home/ladmin/.ssh
 chmod -R go-rwsx /home/ladmin/.ssh
-
-###
-# Display IP address at load prompt
-###
-sudo IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
-sudo echo "eth0 IP: $IP" > /etc/issue
 
 ###
 # clean up
@@ -55,5 +49,5 @@ rm /lib/udev/rules.d/75-persistent-net-generator.rules
 ###
 # zero disk
 ###
-dd if=/dev/zero of=/EMPTY bs=1M
-rm -f /EMPTY
+# dd if=/dev/zero of=/EMPTY bs=1M
+# rm -f /EMPTY

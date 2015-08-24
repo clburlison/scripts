@@ -16,7 +16,7 @@ You will want to modify the following script options to match your environment.
 EXAMPLE:
 
     $ ./download-logicprox-content.py download -o ~/Downloads/LogicProContent
-  
+
     $ ./munkiimport_logic_audio.py ~/Downloads/LogicProContent
 
 ---

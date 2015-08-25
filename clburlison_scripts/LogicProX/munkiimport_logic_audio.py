@@ -15,7 +15,7 @@
 #
 # ./munkiimport_logic_audio.py LogicProContent
 #
-# MyCCPackages hierarchy:
+# Packages hierarchy:
 # .
 # ── Apple Loops
 # │   ├── Chillwave

@@ -46,6 +46,7 @@ MUNKIIMPORT_OPTIONS = [
     "--category", "Media",
     "--update-for", "Logic Pro X",
     "--catalog", "production",
+    "--unattended-install",
 ]
 
 

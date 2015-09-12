@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) 2014 Clayton Burlison
+Copyright (c) 2015 Clayton Burlison
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

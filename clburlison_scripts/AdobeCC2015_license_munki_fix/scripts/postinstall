@@ -1,0 +1,3 @@
+#!/bin/bash
+/tmp/adobe_license/AdobeSerialization
+rm -rf /tmp/adobe_license/

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>OnDemand</key>
+	<true/>
+	<key>_metadata</key>
+	<dict>
+		<key>created_by</key>
+		<string>clburlison</string>
+		<key>creation_date</key>
+		<date>2015-09-09T12:41:12Z</date>
+		<key>munki_version</key>
+		<string>2.3.0.2519</string>
+		<key>os_version</key>
+		<string>10.10.5</string>
+	</dict>
+	<key>autoremove</key>
+	<false/>
+	<key>blocking_applications</key>
+	<array>
+		<string>Adobe Application Manager</string>
+		<string>Adobe After Effects CC 2015</string>
+		<string>Adobe After Effects CC 2014</string>
+		<string>Adobe Audition CC 2015</string>
+		<string>Adobe Audition CC 2014</string>
+		<string>Adobe Bridge CC 2015</string>
+		<string>Adobe Bridge CC 2014</string>
+		<string>Adobe Dreamweaver CC 2015</string>
+		<string>Adobe Dreamweaver CC 2014</string>
+		<string>Adobe Flash Pro CC 2015</string>
+		<string>Adobe Flash Pro CC 2014</string>
+		<string>Adobe Illustrator CC 2015</string>
+		<string>Adobe Illustrator CC 2014</string>
+		<string>Adobe InCopy CC 2015</string>
+		<string>Adobe InCopy CC 2014</string>
+		<string>Adobe InDesign CC 2015</string>
+		<string>Adobe InDesign CC 2014</string>
+		<string>Adobe Lightroom</string>
+		<string>Adobe Media Encoder CC 2015</string>
+		<string>Adobe Media Encoder CC 2014</string>
+		<string>Adobe Muse CC 2015</string>
+		<string>Adobe Muse CC 2014</string>
+		<string>Adobe Photoshop CC 2015</string>
+		<string>Adobe Photoshop CC 2014</string>
+		<string>Adobe Prelude CC 2015</string>
+		<string>Adobe Prelude CC 2014</string>
+		<string>Adobe Premiere Pro CC 2015</string>
+		<string>Adobe Premiere Pro CC 2014</string>
+		<string>Adobe Scout CC 2015</string>
+		<string>Adobe Scout CC 2014</string>
+	</array>
+	<key>catalogs</key>
+	<array>
+		<string>production</string>
+	</array>
+	<key>category</key>
+	<string>Utilities</string>
+	<key>description</key>
+	<string>&lt;html&gt;
+This is a fix for the Adobe CC 2015 Sign In Required prompt. We have an enterprise license as such when your software become de-licensed please install this fix. 
+&lt;br&gt;
+&lt;br&gt;
+Please make sure no Adobe application(s) are running:
+&lt;br&gt;
+&lt;ul&gt;
+  &lt;li&gt;Adobe Photoshop CC 2015&lt;/li&gt;
+  &lt;li&gt;Adobe Photoshop CC 2014&lt;/li&gt;
+  &lt;li&gt;Adobe Premiere Pro CC 2015&lt;/li&gt;
+  &lt;li&gt;Adobe Premiere Pro CC 2014&lt;/li&gt;
+  &lt;li&gt;Adobe Illustrator CC 2015&lt;/li&gt;
+  &lt;li&gt;Adobe Illustrator CC 2014&lt;/li&gt;
+  &lt;li&gt;etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;br&gt;
+Note: When you click install this fix will be applied &lt;b&gt;one&lt;/b&gt; time. Once the fix has been applied Managed Software Center will allow you to click install again, this is only needed if Adobe breaks again.
+&lt;br&gt;
+&lt;br&gt;
+Example Prompt below:
+&lt;br&gt;
+&lt;br&gt;
+&lt;img src="http://munki/repo/images/adobe-cc-signin-required.png"&gt;
+    
+&lt;/html&gt;</string>
+	<key>developer</key>
+	<string>Adobe</string>
+	<key>display_name</key>
+	<string>Adobe CC License Fix</string>
+	<key>icon_hash</key>
+	<string>6c5286aa81cc11f09d96fb69bd5e75496fd54c3df48f0f31842f23c51396a28a</string>
+	<key>installed_size</key>
+	<integer>3611</integer>
+	<key>installer_item_hash</key>
+	<string>6fe0de4fa7bf7d7d9d49547803d8b7208e16f1aa894fd56376b3c3b7a122d504</string>
+	<key>installer_item_location</key>
+	<string>adobe/AdobeCC2015_license_munki_fix-1.0.0.pkg</string>
+	<key>installer_item_size</key>
+	<integer>1320</integer>
+	<key>minimum_os_version</key>
+	<string>10.5.0</string>
+	<key>name</key>
+	<string>AdobeCC2015_license_munki_fix</string>
+	<key>receipts</key>
+	<array>
+		<dict>
+			<key>installed_size</key>
+			<integer>3611</integer>
+			<key>packageid</key>
+			<string>com.github.clburlison</string>
+			<key>version</key>
+			<string>1.0.0</string>
+		</dict>
+	</array>
+	<key>uninstall_method</key>
+	<string>removepackages</string>
+	<key>uninstallable</key>
+	<true/>
+	<key>version</key>
+	<string>1.0.0</string>
+</dict>
+</plist>

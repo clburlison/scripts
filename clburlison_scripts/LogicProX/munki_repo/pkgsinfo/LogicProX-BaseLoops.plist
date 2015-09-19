@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>autoremove</key>
+	<false/>
+	<key>catalogs</key>
+	<array>
+		<string>production</string>
+	</array>
+	<key>category</key>
+	<string>Media</string>
+	<key>description</key>
+	<string>&lt;html&gt;
+&lt;p&gt;Logic Pro X comes with a collection of over 4600 electronic and urban loops, covering everything from Hip Hop to Electro House, Dubstep, Modern R&amp;B, Tech House, Deep House, Chillwave, Vintage Breaks, Indie Disco, Disco Funk, and Blues Garage.&lt;/p&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;p&gt;These base loops are about 38 gigabytes of audio content.&lt;/p&gt;
+&lt;/html&gt;</string>
+	<key>developer</key>
+	<string>Apple</string>
+	<key>display_name</key>
+	<string>Logic Pro X - Base Loops</string>
+	<key>icon_name</key>
+	<string>speaker.png</string>
+	<key>installer_type</key>
+	<string>nopkg</string>
+	<key>installs</key>
+	<array>
+		<dict>
+			<key>path</key>
+			<string>/Users/Shared/.com.apple.logicprox.BaseLoops</string>
+			<key>type</key>
+			<string>file</string>
+		</dict>
+	</array>
+	<key>minimum_os_version</key>
+	<string>10.9.0</string>
+	<key>name</key>
+	<string>LogicProX-BaseLoops</string>
+	<key>postinstall_script</key>
+	<string>#!/bin/sh
+touch /Users/Shared/.com.apple.logicprox.BaseLoops
+exit 0</string>
+	<key>requires</key>
+	<array>
+		<string>Logic Pro X</string>
+	</array>
+	<key>unattended_install</key>
+	<true/>
+	<key>uninstall_method</key>
+	<string>uninstall_script</string>
+	<key>uninstall_script</key>
+	<string>#!/bin/sh
+rm -f /Users/Shared/.com.apple.logicprox.BaseLoops</string>
+	<key>uninstallable</key>
+	<true/>
+	<key>version</key>
+	<string>1.0</string>
+</dict>
+</plist>

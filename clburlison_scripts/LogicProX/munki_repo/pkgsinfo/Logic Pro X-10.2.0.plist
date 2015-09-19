@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>_metadata</key>
+	<dict>
+		<key>created_by</key>
+		<string>clburlison</string>
+		<key>creation_date</key>
+		<date>2015-08-26T16:04:25Z</date>
+		<key>munki_version</key>
+		<string>2.3.0.2519</string>
+		<key>os_version</key>
+		<string>10.10.5</string>
+	</dict>
+	<key>autoremove</key>
+	<false/>
+	<key>catalogs</key>
+	<array>
+		<string>production</string>
+	</array>
+	<key>category</key>
+	<string>Editing applications</string>
+	<key>description</key>
+	<string>Logic Pro X is the most advanced version of Logic ever. Sophisticated new tools for professional songwriting, editing, and mixing are built around a modern interface that's designed to get creative results quickly and also deliver more power whenever it's needed. Logic Pro X includes a massive collection of instruments, effects, and loops, providing a complete toolkit to create amazing-sounding music.</string>
+	<key>developer</key>
+	<string>Apple</string>
+	<key>display_name</key>
+	<string>Logic Pro X</string>
+	<key>icon_hash</key>
+	<string>f45c3b38332f18a965c1e969324a3a0391068822c9f4997b6298d252c46e1a62</string>
+	<key>installer_item_hash</key>
+	<string>6fde3db431fb0b949ad66b9ec1aeba2b9157176b9d058c7db2174655c5a3af3b</string>
+	<key>installer_item_location</key>
+	<string>cte/audiovideo/logicx/Logic Pro X-10.2.0.dmg</string>
+	<key>installer_item_size</key>
+	<integer>1211165</integer>
+	<key>installer_type</key>
+	<string>copy_from_dmg</string>
+	<key>installs</key>
+	<array>
+		<dict>
+			<key>CFBundleIdentifier</key>
+			<string>com.apple.logic10</string>
+			<key>CFBundleName</key>
+			<string>Logic Pro X</string>
+			<key>CFBundleShortVersionString</key>
+			<string>10.2.0</string>
+			<key>CFBundleVersion</key>
+			<string>3987.29</string>
+			<key>minosversion</key>
+			<string>10.9</string>
+			<key>path</key>
+			<string>/Applications/Logic Pro X.app</string>
+			<key>type</key>
+			<string>application</string>
+			<key>version_comparison_key</key>
+			<string>CFBundleShortVersionString</string>
+		</dict>
+	</array>
+	<key>items_to_copy</key>
+	<array>
+		<dict>
+			<key>destination_path</key>
+			<string>/Applications</string>
+			<key>source_item</key>
+			<string>Logic Pro X.app</string>
+		</dict>
+	</array>
+	<key>minimum_os_version</key>
+	<string>10.9</string>
+	<key>name</key>
+	<string>Logic Pro X</string>
+	<key>unattended_install</key>
+	<true/>
+	<key>uninstall_method</key>
+	<string>remove_copied_items</string>
+	<key>uninstallable</key>
+	<true/>
+	<key>version</key>
+	<string>10.2.0</string>
+</dict>
+</plist>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>catalogs</key>
+	<array>
+		<string>production</string>
+	</array>
+	<key>included_manifests</key>
+	<array>
+	</array>
+	<key>managed_installs</key>
+	<array>
+		<string>Logic Pro X</string>
+		<string>LogicProX-BaseLoops</string>
+	</array>
+	<key>managed_uninstalls</key>
+	<array>
+	</array>
+	<key>managed_updates</key>
+	<array>
+	</array>
+	<key>optional_installs</key>
+	<array>
+		<string>LogicProX-Alchemy</string>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>autoremove</key>
+	<false/>
+	<key>catalogs</key>
+	<array>
+		<string>production</string>
+	</array>
+	<key>category</key>
+	<string>Media</string>
+	<key>description</key>
+	<string>&lt;html&gt;
+&lt;p&gt;Logic Pro X Alchemy Sound Libraries. Contains the following categories:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Atmospheric&lt;/li&gt;
+  &lt;li&gt;Cinematic&lt;/li&gt;
+  &lt;li&gt;Modern&lt;/li&gt;
+  &lt;li&gt;Songwriter&lt;/li&gt;
+  &lt;li&gt;Textures and Effects&lt;/li&gt;
+  &lt;li&gt;Basic Additions&lt;/li&gt;
+  &lt;li&gt;Dance&lt;/li&gt;
+  &lt;li&gt;Modern Synth&lt;/li&gt;
+  &lt;li&gt;Vintage Synth&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;p&gt;About 13 GB of audio content.&lt;/p&gt;
+&lt;/html&gt;</string>
+	<key>developer</key>
+	<string>Apple</string>
+	<key>display_name</key>
+	<string>Logic Pro X - Alchemy</string>
+	<key>icon_name</key>
+	<string>speaker.png</string>
+	<key>installer_type</key>
+	<string>nopkg</string>
+	<key>installs</key>
+	<array>
+		<dict>
+			<key>path</key>
+			<string>/Users/Shared/.com.apple.logicprox.Alchemy</string>
+			<key>type</key>
+			<string>file</string>
+		</dict>
+	</array>
+	<key>minimum_os_version</key>
+	<string>10.9.0</string>
+	<key>name</key>
+	<string>LogicProX-Alchemy</string>
+	<key>postinstall_script</key>
+	<string>#!/bin/sh
+touch /Users/Shared/.com.apple.logicprox.Alchemy
+exit 0</string>
+	<key>requires</key>
+	<array>
+		<string>Logic Pro X</string>
+	</array>
+	<key>unattended_install</key>
+	<true/>
+	<key>uninstall_method</key>
+	<string>uninstall_script</string>
+	<key>uninstall_script</key>
+	<string>#!/bin/sh
+rm -f /Users/Shared/.com.apple.logicprox.Alchemy</string>
+	<key>uninstallable</key>
+	<true/>
+	<key>version</key>
+	<string>1.0</string>
+</dict>
+</plist>

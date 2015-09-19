@@ -42,4 +42,4 @@ See the included demo ``munki_repo`` for examples.
 
 ---
 
-Based off work by Tim Sutton[munkiimport_cc_installers](https://github.com/timsutton/aamporter/blob/master/scripts/munkiimport_cc_installers.py) AND [aamporter.py](https://github.com/timsutton/aamporter/blob/master/aamporter.py).   
+Based off work by Tim Sutton [munkiimport_cc_installers](https://github.com/timsutton/aamporter/blob/master/scripts/munkiimport_cc_installers.py) AND [aamporter.py](https://github.com/timsutton/aamporter/blob/master/aamporter.py).   

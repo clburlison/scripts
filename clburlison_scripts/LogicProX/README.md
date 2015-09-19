@@ -36,12 +36,9 @@ The biggest issues this script solves is importing all 357 packages in an automa
 * Base Audio Content - 35.32 GB
 * Alchemy Content - 13 GB
 
-Not all laptops I manage need all 50 GBs of content. Heck some can get away with just Logic plus the essental content. However I needed a solution that was flexible. As such this will allow you to pick and choice from the following combinations:
+Not all laptops I manage need all 50 GBs of content. Some can get away with just Logic plus the essental content. However, I needed a solution that was flexible. 
 
-A) Logic + Essental OR
-B) Logic + Essental + [Base +/- Alchemy]
-
-See the included demo 'munki_repo' for examples.
+See the included demo ``munki_repo`` for examples.
 
 ---
 

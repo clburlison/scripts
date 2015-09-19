@@ -30,4 +30,4 @@ The munki_examples directory has a html descrition for the OnDemand Package. You
 * ``make import`` - clean working directories, build package, and import into munki 
 
 #Other Options 
-Tim Sutton has another solution located here: [make-adobe-cc-license-pkg](https://github.com/timsutton/make-adobe-cc-license-pkg). His project is a bit more however at the time I couldn't find it and made this. Both serve the same purpose.
+Tim Sutton has another solution located here: [make-adobe-cc-license-pkg](https://github.com/timsutton/make-adobe-cc-license-pkg). His project offers additional features that I didn't need. Both serve the same purpose.

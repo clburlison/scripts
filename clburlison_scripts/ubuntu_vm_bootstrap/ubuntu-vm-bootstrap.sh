@@ -3,23 +3,23 @@
 ###
 # initial updates
 ###
-sudo apt-get update
-sudo apt-get -y upgrade
-sudo apt-get -y install linux-headers-$(uname -r)
+apt-get update
+apt-get -y upgrade
+apt-get -y install linux-headers-$(uname -r)
 
-sudo echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
+echo "ladmin ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/ers
 
 ###
 # vmware tools for ubuntu
 ###
-sudo apt-get -y install open-vm-tools-desktop
+apt-get -y install open-vm-tools-desktop
 
 ###
 # ssh service
 ###
-sudo apt-get -y install openssh-client
-sudo apt-get -y install openssh-server
-sudo /etc/init.d/ssh restart
+apt-get -y install openssh-client
+apt-get -y install openssh-server
+/etc/init.d/ssh restart
 
 ###
 # ssh keys for ladmin account

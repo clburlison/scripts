@@ -7,7 +7,7 @@ apt-get update
 apt-get -y upgrade
 apt-get -y install linux-headers-$(uname -r)
 
-echo "ladmin ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/ers
+echo "ladmin ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers
 
 ###
 # vmware tools for ubuntu

@@ -12,7 +12,7 @@ _All files provided as is. You run it. You break it. You fix it. I hold no respo
 Some directories will have a Makefile for creating packages. I currently am using two types of Makefiles, native and luggage. To verify which Makefile I am using open the file and look for ``include /usr/local/share/luggage/luggage.make`` if that line is present you will need to install [luggage](https://github.com/unixorn/luggage). Other Makefiles would be considered native and use Apple's built in command line tools to create packages.
 
 ##Command line tools
-Command line tools will need to be installed for most of the items in this repo to work.
+Command line tools will need to be installed for some of the items in this repo to work.
 
 ---
 _Shortcuts:_

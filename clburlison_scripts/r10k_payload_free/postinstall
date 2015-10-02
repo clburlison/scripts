@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/bin/gem install r10k CFPropertyList sqlite3 hiera-eyaml

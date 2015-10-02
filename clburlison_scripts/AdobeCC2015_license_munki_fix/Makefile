@@ -1,5 +1,7 @@
+PKGTITLE="AdobeCC2015_license_munki_fix"
 PKGVERSION=1.0.0
 PKGID=com.github.clburlison
+# SIGN=--sign "Developer ID Installer: Clayton Burlison"
 
 all: clean build
 
@@ -11,7 +13,7 @@ build:
 	mkdir -p pkgroot/tmp/adobe_license
 	mkdir -p out
 	cp -R license_data/* pkgroot/tmp/adobe_license/
-	pkgbuild --root pkgroot --identifier ${PKGID} --version ${PKGVERSION} --scripts scripts out/AdobeCC2015_license_munki_fix-${PKGVERSION}.pkg
+	pkgbuild --root pkgroot --identifier ${PKGID} --version ${PKGVERSION} ${SIGN} --ownership recommended --scripts scripts out/${PKGTITLE}-${PKGVERSION}.pkg
 
 import: all
 	/usr/local/munki/munkiimport --OnDemand \

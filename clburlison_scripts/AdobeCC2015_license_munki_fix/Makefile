@@ -1,6 +1,6 @@
 PKGTITLE="AdobeCC2015_license_munki_fix"
-PKGVERSION=1.0.0
-PKGID=com.github.clburlison
+PKGVERSION=1.0.1
+PKGID=com.github.clburlison.adobe.license.fix
 # SIGN=--sign "Developer ID Installer: Clayton Burlison"
 
 all: clean build

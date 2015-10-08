@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Author: Clayton Burlison <https://clburlison.com>
+
+# This has decencies on the following:
+#		* Puppet 3.X install
+#		* Facter install
+#		* Hiera install
+#		* r10k install with exec shortcut available at /usr/local/bin/r10k
+#			* All necessary ruby gems for r10k to work
+#		* Puppet configuration already setup - https://github.com/birdvilleisd/puppet-mac-bootstrap
+#		* puppet_run.py - https://github.com/birdvilleisd/puppet_run
+
+/usr/local/bin/puppet_run.py
+
+exit 0

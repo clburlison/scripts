@@ -12,10 +12,8 @@ clean:
 
 build: install
 	mkdir -p pkgroot/Library/Ruby/Gems/2.0.0
-	mkdir -p pkgroot/usr/local/bin
 	mkdir -p out
 	cp -R repo/* pkgroot/Library/Ruby/Gems/2.0.0/
-	cp -R repo/bin/* pkgroot/usr/local/bin
 	pkgbuild --root pkgroot --identifier ${PKGID} --version ${PKGVERSION} ${SIGN} --ownership recommended out/${PKGTITLE}-${PKGVERSION}.pkg
 
 install:

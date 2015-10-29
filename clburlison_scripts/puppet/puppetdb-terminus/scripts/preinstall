@@ -1,0 +1,2 @@
+#!/bin/bash
+/bin/rm -rf /Library/Ruby/Site/2.0.0/puppet

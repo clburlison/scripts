@@ -1,0 +1,1 @@
+It isn't possible to return a checksum hash a directory using md5 or sha1. However you can combine all of the hashes of the included files into a single hash.

@@ -22,3 +22,6 @@ _Note_: the script has a debug mode for you know...debugging issues.
 
 
 Discussion related to this topic [here](https://groups.google.com/forum/?fromgroups#!topic/macenterprise/wOM_KTnLr7A). 
+
+##Other Solutions
+Macmule has an almost identical solution here, possible better logic: https://github.com/macmule/AD-Users-Losing-Admin-Rights-When-Off-The-Domain

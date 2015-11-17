@@ -40,6 +40,13 @@ Not all laptops I manage need all 50 GBs of content. Some can get away with just
 
 See the included demo ``munki_repo`` for examples.
 
+**November 17, 2015**
+Dave Weale found a nice little bug with this approach. 
+
+TL;DR: 10.11 has SIP enabled and Apple is writing Receipts for the audio content to /System/Library/Receipts. When munki imports these packages we are using the package receipts to determine if the content has been installed. When removing the package content Munki is unable to remove the recipe as /System is SIP protected. 
+
+More info: [Logic Pro X assets not installing after removal & attempted reinstall](https://groups.google.com/forum/#!topic/munki-discuss/TjeSl39zGVw)
+
 ---
 
 Based off work by Tim Sutton [munkiimport_cc_installers](https://github.com/timsutton/aamporter/blob/master/scripts/munkiimport_cc_installers.py) AND [aamporter.py](https://github.com/timsutton/aamporter/blob/master/aamporter.py).   

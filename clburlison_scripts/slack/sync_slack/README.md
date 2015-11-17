@@ -23,6 +23,12 @@ Make sure and change the following variable to match your environment:
     log_path = '/some/path/to/some_log.log'
 
 
+## Sample Output
+
+The output in your slack channel will look like: 
+
+![sample](./sample.png)
+
 ## LaunchDaemon
 
 Also, included in this directory is a sample LaunchDaemon. This script can also be ran on-demand or with any other launch method you wish, however I'm using a LaunchDaemon due to the fact that if my backup computer reboots I want to make sure the script is still ran (even at the loginwindow).

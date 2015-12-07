@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#delete all bluetooth settings
+defaults delete /Library/Preferences/com.apple.Bluetooth.plist
+
+#set bluetooth pref to off
+defaults write /Library/Preferences/com.apple.Bluetooth.plist ControllerPowerState 0
+
+#kill the bluetooth server process
+killall blued
+
+#unload the daemon
+launchctl unload /System/Library/LaunchDaemons/com.apple.blued.plist
+
+#reload the daemon
+launchctl load /System/Library/LaunchDaemons/com.apple.blued.plist
+
+#restart blued daemon
+launchctl start com.apple.blued

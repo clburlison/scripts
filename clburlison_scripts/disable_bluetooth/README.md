@@ -1,10 +1,15 @@
 Disable Bluetooth Adapter
 ===
 
+#PLEASE DON'T USE THIS AS IS. I NEVER FINISHED THIS AND SHOULD ONLY BE USED AS A RESOURCE. BLUETOOTH DEVICES WERE ANNOYING BUT I NEVER GOT ALL THE PIECES TOGETHER.
+
+
 ...you know for disabling the bluetooth adapter.
 
 
 Extra bits that might be of interest to others.
+
+
 
 ```bash
 #delete bluetooth bits from pram

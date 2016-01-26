@@ -71,20 +71,11 @@ def sysprefs_boxchk():
         os.chown(das_plist, 205, 205)
         service_handler('load')
 
-def remove_python():
-    """Python dict for clients.plist in locationd settings."""
+def clear_clients():
+    """Clear clients.plist in locationd settings."""
     auth_plist = {}
-    current_os = int(os_vers())    
-    domain = "org.python.python"
-    binary_path = "/System/Library/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python"
-    
-    if current_os == 11:
-        domain = "com.apple.locationd.executable-%s" % binary_path
-
     das_plist = '/private/var/db/locationd/clients.plist'
     clients_dict = FoundationPlist.readPlist(das_plist)
-    val = clients_dict.get(domain, None)
-
     service_handler('unload')
     clients_dict = auth_plist
     FoundationPlist.writePlist(clients_dict, das_plist)
@@ -95,7 +86,7 @@ def main():
     """Give main"""
     root_check()
     sysprefs_boxchk()
-    remove_python()
+    clear_clients()
 
 if __name__ == '__main__':
     main()

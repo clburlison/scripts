@@ -1,3 +1,7 @@
 *.pkg
 *.dmg
 *.DS_Store
+out/
+repo/
+pkgroot/
+tmp/

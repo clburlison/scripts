@@ -2,8 +2,15 @@
 """Reset location services to factory settings. Requires FoundationPlist
 which is installed by default with munki - https://github.com/munki/munki/releases"""
 
-import sys, os, platform, subprocess, objc
-from Foundation import NSRunLoop, NSDate, NSObject
+import sys
+import os
+import platform
+import subprocess
+import objc
+
+# PyLint cannot properly find names inside Cocoa libraries, so issues bogus
+# No name 'Foo' in module 'Bar' warnings. Disable them.
+# pylint: disable=E0611
 from Foundation import NSBundle
 try:
     sys.path.append('/usr/local/munki/munkilib/')
@@ -21,11 +28,13 @@ functions = [("IOServiceGetMatchingService", b"II@"),
             ]
 
 objc.loadBundleFunctions(IOKit_bundle, globals(), functions)
-    
-def io_key(keyname):
-    return IORegistryEntryCreateCFProperty(IOServiceGetMatchingService(0, IOServiceMatching("IOPlatformExpertDevice")), keyname, None, 0)
 
+def io_key(keyname):
+    """Pythonic function to retrieve system info without a subprocess call."""
+    return IORegistryEntryCreateCFProperty(IOServiceGetMatchingService(0, \
+           IOServiceMatching("IOPlatformExpertDevice")), keyname, None, 0)
 def get_hardware_uuid():
+    """Returns the system UUID."""
     return io_key("IOPlatformUUID")
 
 def root_check():
@@ -40,7 +49,7 @@ def os_vers():
 
 def os_check():
     """Only tested on 10.8 - 10.11."""
-    if not (8 <= int(os_vers()) <= 11):
+    if not 8 <= int(os_vers()) <= 11:
         exit("This tool only tested on 10.8 - 10.11")
 
 def service_handler(action):
@@ -60,8 +69,8 @@ def sysprefs_boxchk():
     try:
         on_disk = FoundationPlist.readPlist(das_plist)
     except:
-        p = {}
-        FoundationPlist.writePlist(p, das_plist)
+        plist = {}
+        FoundationPlist.writePlist(plist, das_plist)
         on_disk = FoundationPlist.readPlist(das_plist)
     val = on_disk.get('LocationServicesEnabled', None)
     if val != 0:

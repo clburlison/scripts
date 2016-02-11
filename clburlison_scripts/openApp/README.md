@@ -1,0 +1,1 @@
+A pythonic way to open an application if a user is logged in. This could be used in a postinstall script to launch an application.

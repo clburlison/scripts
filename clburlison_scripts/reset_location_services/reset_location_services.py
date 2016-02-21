@@ -1,6 +1,10 @@
 #!/usr/bin/python
-"""Reset location services to factory settings. Requires FoundationPlist
-which is installed by default with munki - https://github.com/munki/munki/releases"""
+"""
+Reset location services to factory settings. Requires FoundationPlist
+which is installed by default with munki - https://github.com/munki/munki/releases.
+
+pinpoint also installs FoundationPlist - https://github.com/clburlison/pinpoint/releases.
+"""
 
 import sys
 import os
@@ -14,9 +18,10 @@ import objc
 from Foundation import NSBundle
 try:
     sys.path.append('/usr/local/munki/munkilib/')
+    sys.path.append('/Library/Application Support/pinpoint/bin')
     import FoundationPlist
 except ImportError as error:
-    print "Could not find FoundationPlist, are munkitools installed?"
+    print "Could not find FoundationPlist."
     raise error
 
 # Retrieve system UUID

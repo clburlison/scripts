@@ -1,0 +1,18 @@
+#!/bin/bash
+# For Ubuntu 14.04 - might work on other systems however it is untested
+
+CODEDIR="/usr/local/asus/reposado/code"
+
+# Sync with Apple
+${CODEDIR}/repo_sync
+
+# Go away Config-data. Nobody likes you. I want you to install automatically.
+repoutil_ConfigUpdates=`python ${CODEDIR}/repoutil --products | awk '/Config/{print$1}'      `
+for update in ${repoutil_ConfigUpdates}; do
+        echo "Removing Config Data for $update"
+        python ${CODEDIR}/repoutil --remove-config-data "$update"
+done
+
+# Fix permissions for web-server
+/bin/chgrp -R www-data /usr/local/asus/www
+/bin/chmod -R g+rX /usr/local/asus/www

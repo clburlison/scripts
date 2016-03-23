@@ -7,11 +7,8 @@ CODEDIR="/usr/local/asus/reposado/code"
 ${CODEDIR}/repo_sync
 
 # Go away Config-data. Nobody likes you. I want you to install automatically.
-repoutil_ConfigUpdates=`python ${CODEDIR}/repoutil --products | awk '/Config/{print$1}'      `
-for update in ${repoutil_ConfigUpdates}; do
-        echo "Removing Config Data for $update"
-        python ${CODEDIR}/repoutil --remove-config-data "$update"
-done
+# requires at least reposado 37f31b4 - https://github.com/wdas/reposado/commit/37f31b412a5b1a9bb60f16f2572290379d1cb053
+${CODEDIR}/repoutil --remove-config-data all
 
 # Fix permissions for web-server
 /bin/chgrp -R www-data /usr/local/asus/www

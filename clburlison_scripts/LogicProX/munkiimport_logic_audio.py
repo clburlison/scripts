@@ -133,6 +133,16 @@ def main():
             munkiimport.REPO_PATH = munkiimport.pref('repo_path')
         except ImportError:
             errorExit("There was an error importing munkilib, which is needed for --munkiimport functionality.")
+         # rewrite some of munkiimport's function names since they were changed to
+         # snake case around 2.6.1:
+         # https://github.com/munki/munki/commit/e3948104e869a6a5eb6b440559f4c57144922e71
+         try:
+             munkiimport.repoAvailable()
+         except AttributeError:
+             munkiimport.repoAvailable = munkiimport.repo_available
+             munkiimport.makePkgInfo = munkiimport.make_pkginfo
+             munkiimport.findMatchingPkginfo = munkiimport.find_matching_pkginfo
+             munkiimport.makeCatalogs = munkiimport.make_catalogs
         if not munkiimport.repoAvailable():
             errorExit("The Munki repo cannot be located. This tool is not interactive; first ensure the repo is mounted.")
   

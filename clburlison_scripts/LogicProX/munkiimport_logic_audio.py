@@ -49,7 +49,6 @@ ESSENTIAL_PKGS = [
     'MAContent10_LogicCoreContent2Presets.pkg', 
     'ProAudioCoreContent10.pkg']
 UPDATE4 = None
-UPDATE = None
 ERROR = 50
 WARNING = 40
 INFO = 30

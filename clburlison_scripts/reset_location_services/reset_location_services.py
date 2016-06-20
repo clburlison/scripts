@@ -98,6 +98,7 @@ def clear_clients():
 
 def main():
     """Give main"""
+    os_check()
     root_check()
     sysprefs_boxchk()
     clear_clients()

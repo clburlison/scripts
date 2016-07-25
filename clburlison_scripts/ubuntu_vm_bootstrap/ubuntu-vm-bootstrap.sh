@@ -12,7 +12,7 @@ echo "ladmin ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers
 ###
 # vmware tools for ubuntu
 ###
-apt-get -y install open-vm-tools-desktop
+# apt-get -y install open-vm-tools-desktop
 
 ###
 # ssh service
@@ -26,7 +26,7 @@ apt-get -y install openssh-server
 ###
 mkdir /home/ladmin/.ssh
 wget --no-check-certificate \
-    'https://cburlison.s3.amazonaws.com/public/public_ssh_keys/birdville_rsa.pub' \
+    'https://raw.githubusercontent.com/clburlison/scripts/master/clburlison_scripts/ubuntu_vm_bootstrap/birdville_rsa.pub' \
     -O /home/ladmin/.ssh/authorized_keys
 chown -R ladmin /home/ladmin/.ssh
 chmod -R go-rwsx /home/ladmin/.ssh

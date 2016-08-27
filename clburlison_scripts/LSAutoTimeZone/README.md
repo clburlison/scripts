@@ -8,15 +8,7 @@ This script has a bunch of stolen work from [@arubdesu](https://github.com/arubd
 1. Force a time zone location lookup at runtime
 1. Set correct date, time, and time zone
 
-You can optionally set NTP servers that by changing the `NTP_SERVERS` list and uncommenting `# enable_ntp()` on line 176.
-
-Note: When this code exits, it will generate a warning message - this is to be expected!
-
-    Warning will look like:
-    Python[3056:158489] PyObjC: Exception during dealloc of proxy: Cannot remove an observer <TimeZonePref 0x7f846b4b6710>
-    for the key path "enabled" from <ATZAdminPrefererences 0x7f846b502a30> because it is not registered as an observer.
-
-The above message can be completely safely ignored.
+You can optionally set NTP servers that by changing the `NTP_SERVERS` list and uncommenting `# enable_ntp()` on line 184.
 
 ## Credits
 https://gist.github.com/arubdesu/b72585771a9f606ad800

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 """
-This script has a bunch of stolen work from @arubdesu, @pudquick, and Munki. 
+This script has a bunch of stolen work from @arubdesu, @pudquick, and Munki.
 It is completely self contained and should do the following:
 
 1. Enable Location Services globally
@@ -28,6 +28,7 @@ from Foundation import NSPropertyListMutableContainers
 from Foundation import NSPropertyListXMLFormat_v1_0
 
 NTP_SERVERS = ['time1.google.com', 'time.apple.com']
+
 
 class FoundationPlistException(Exception):
     """Basic exception for plist errors"""
@@ -110,13 +111,15 @@ def os_check():
     """Should be good on 10.8 and above"""
     maj_os_vers = platform.mac_ver()[0].split('.')[1]
     if not 8 <= int(maj_os_vers):
-        exit("Your OS is not supported at this time: %s" % platform.mac_ver()[0])
+        exit("Your OS is not supported at this time: %s" %
+             platform.mac_ver()[0])
 
 
 def sysprefs_boxchk():
     """Enables location services in sysprefs globally"""
     uuid = ioreg()
-    path_stub = "/private/var/db/locationd/Library/Preferences/ByHost/com.apple.locationd."
+    path_stub = ("/private/var/db/locationd/Library/Preferences/"
+                 "ByHost/com.apple.locationd.")
     das_plist = path_stub + uuid.strip() + ".plist"
     on_disk = readPlist(das_plist)
     val = on_disk.get('LocationServicesEnabled', None)
@@ -149,9 +152,14 @@ def autoset_timezone():
 
 def timezone_lookup():
     """Force a timezone lookup right now"""
-    TZPP = NSBundle.bundleWithPath_("/System/Library/PreferencePanes/DateAndTime.prefPane/Contents/Resources/TimeZone.prefPane")
+    TZPP = NSBundle.bundleWithPath_("/System/Library/PreferencePanes/"
+                                    "DateAndTime.prefPane/Contents/"
+                                    "Resources/TimeZone.prefPane")
     TimeZonePref = TZPP.classNamed_('TimeZonePref')
+    ATZAdminPrefererences = TZPP.classNamed_('ATZAdminPrefererences')
+    atzap = ATZAdminPrefererences.defaultPreferences()
     pref = TimeZonePref.alloc().init()
+    atzap.addObserver_forKeyPath_options_context_(pref, "enabled", 0, 0)
     result = pref._startAutoTimeZoneDaemon_(0x1)
 
 
@@ -159,7 +167,7 @@ def enable_ntp():
     """Enable your Mac to use NTP to set clock time and set NTP servers"""
     ntpconf = open('/etc/ntp.conf', 'w')
     for server in NTP_SERVERS:
-      ntpconf.write("{0}{1}\n".format('server ', server))
+        ntpconf.write("{0}{1}\n".format('server ', server))
     enable_ntp = ['/usr/sbin/systemsetup', '-setusingnetworktime', 'on']
     subprocess.check_output(enable_ntp)
 

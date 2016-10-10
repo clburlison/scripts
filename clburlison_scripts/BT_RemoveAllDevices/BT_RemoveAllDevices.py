@@ -1,7 +1,3 @@
 #!/usr/bin/python
-# This will display a GUI prompt to remove the devices.
-from Foundation import NSBundle
-BTPP = NSBundle.bundleWithPath_("/System/Library/PreferencePanes/Bluetooth.prefPane")
-BluetoothPref = BTPP.classNamed_('DeviceMenuCreator')
-pref = BluetoothPref.alloc().init()
-result = pref.removeAllDevices()
+print("Use the following instead: https://gist.github.com/pudquick/5a1aaa2effe3825368db4c1925924bba")
+

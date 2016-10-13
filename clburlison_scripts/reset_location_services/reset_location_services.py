@@ -38,6 +38,7 @@ def io_key(keyname):
     """Pythonic function to retrieve system info without a subprocess call."""
     return IORegistryEntryCreateCFProperty(IOServiceGetMatchingService(0, \
            IOServiceMatching("IOPlatformExpertDevice")), keyname, None, 0)
+
 def get_hardware_uuid():
     """Returns the system UUID."""
     return io_key("IOPlatformUUID")
@@ -53,12 +54,24 @@ def os_vers():
     return maj_os_vers
 
 def os_check():
-    """Only tested on 10.8 - 10.11."""
-    if not 8 <= int(os_vers()) <= 11:
-        exit("This tool only tested on 10.8 - 10.11")
+    """Only tested on 10.8 - 10.12."""
+    if not 8 <= int(os_vers()) <= 12:
+        exit("This tool only tested on 10.8 - 10.12")
+
+def kill_services():
+    """On 10.12, both the locationd and cfprefsd services like to not respect
+    preference changes so we force them to reload."""
+    proc = subprocess.Popen(['/usr/bin/killall', '-9', 'cfprefsd'],
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE)
+    proc = subprocess.Popen(['/usr/bin/killall', '-9', 'locationd'],
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE)
 
 def service_handler(action):
     """Loads/unloads System's location services launchd job."""
+    if action is 'load':
+        kill_services()
     launchctl = ['/bin/launchctl', action,
                  '/System/Library/LaunchDaemons/com.apple.locationd.plist']
     subprocess.check_output(launchctl)

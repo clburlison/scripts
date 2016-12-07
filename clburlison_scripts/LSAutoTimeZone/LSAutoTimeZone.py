@@ -13,8 +13,8 @@ Optionally set NTP servers.
 References/borrowed code:
 https://gist.github.com/arubdesu/b72585771a9f606ad800
 https://gist.github.com/pudquick/ba235b7e90aafb9986158697a457a0d0
+https://gist.github.com/pudquick/c7dd1262bd81a32663f0
 https://github.com/rtrouton/rtrouton_scripts/blob/master/rtrouton_scripts/time_settings/time_settings.sh
-https://github.com/munki/munki/blob/master/code/client/munkilib/FoundationPlist.py
 """
 
 import os

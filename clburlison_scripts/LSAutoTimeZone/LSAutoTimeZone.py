@@ -24,10 +24,6 @@ import sys
 import objc
 from CoreLocation import CLLocationManager
 from Foundation import NSBundle
-from Foundation import NSData
-from Foundation import NSPropertyListSerialization
-from Foundation import NSPropertyListMutableContainers
-from Foundation import NSPropertyListXMLFormat_v1_0
 
 NTP_SERVERS = ['time1.google.com', 'time.apple.com']
 

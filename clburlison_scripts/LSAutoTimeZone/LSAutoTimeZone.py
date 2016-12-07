@@ -149,7 +149,6 @@ def timezone_lookup():
     return True
 
 
-
 def enable_ntp():
     """Enable your Mac to use NTP to set clock time and set NTP servers"""
     ntpconf = open('/etc/ntp.conf', 'w')

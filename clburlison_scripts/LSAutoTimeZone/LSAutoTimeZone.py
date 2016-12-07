@@ -21,6 +21,8 @@ import os
 import platform
 import subprocess
 import sys
+import objc
+from CoreLocation import CLLocationManager
 from Foundation import NSBundle
 from Foundation import NSData
 from Foundation import NSPropertyListSerialization
@@ -30,74 +32,83 @@ from Foundation import NSPropertyListXMLFormat_v1_0
 NTP_SERVERS = ['time1.google.com', 'time.apple.com']
 
 
-class FoundationPlistException(Exception):
-    """Basic exception for plist errors"""
-    pass
+# class FoundationPlistException(Exception):
+#     """Basic exception for plist errors"""
+#     pass
+#
+#
+# class NSPropertyListSerializationException(FoundationPlistException):
+#     """Read/parse error for plists"""
+#     pass
+#
+#
+# class NSPropertyListWriteException(FoundationPlistException):
+#     """Write error for plists"""
+#     pass
+#
+#
+# def readPlist(filepath):
+#     """
+#     Stolen from Munki FoundationPlist.py
+#     Read a .plist file from filepath.  Return the unpacked root object
+#     (which is usually a dictionary).
+#     """
+#     plistData = NSData.dataWithContentsOfFile_(filepath)
+#     dataObject, dummy_plistFormat, error = (
+#         NSPropertyListSerialization.
+#         propertyListFromData_mutabilityOption_format_errorDescription_(
+#             plistData, NSPropertyListMutableContainers, None, None))
+#     if dataObject is None:
+#         if error:
+#             error = error.encode('ascii', 'ignore')
+#         else:
+#             error = "Unknown error"
+#         errmsg = "%s in file %s" % (error, filepath)
+#         raise NSPropertyListSerializationException(errmsg)
+#     else:
+#         return dataObject
+#
+#
+# def writePlist(dataObject, filepath):
+#     """
+#     Stolen from Munki FoundationPlist.py
+#     Write 'rootObject' as a plist to filepath.
+#     """
+#     plistData, error = (
+#         NSPropertyListSerialization.
+#         dataFromPropertyList_format_errorDescription_(
+#             dataObject, NSPropertyListXMLFormat_v1_0, None))
+#     if plistData is None:
+#         if error:
+#             error = error.encode('ascii', 'ignore')
+#         else:
+#             error = "Unknown error"
+#         raise NSPropertyListSerializationException(error)
+#     else:
+#         if plistData.writeToFile_atomically_(filepath, True):
+#             return
+#         else:
+#             raise NSPropertyListWriteException(
+#                 "Failed to write plist data to %s" % filepath)
 
 
-class NSPropertyListSerializationException(FoundationPlistException):
-    """Read/parse error for plists"""
-    pass
-
-
-class NSPropertyListWriteException(FoundationPlistException):
-    """Write error for plists"""
-    pass
-
-
-def readPlist(filepath):
-    """
-    Stolen from Munki FoundationPlist.py
-    Read a .plist file from filepath.  Return the unpacked root object
-    (which is usually a dictionary).
-    """
-    plistData = NSData.dataWithContentsOfFile_(filepath)
-    dataObject, dummy_plistFormat, error = (
-        NSPropertyListSerialization.
-        propertyListFromData_mutabilityOption_format_errorDescription_(
-            plistData, NSPropertyListMutableContainers, None, None))
-    if dataObject is None:
-        if error:
-            error = error.encode('ascii', 'ignore')
-        else:
-            error = "Unknown error"
-        errmsg = "%s in file %s" % (error, filepath)
-        raise NSPropertyListSerializationException(errmsg)
-    else:
-        return dataObject
-
-
-def writePlist(dataObject, filepath):
-    """
-    Stolen from Munki FoundationPlist.py
-    Write 'rootObject' as a plist to filepath.
-    """
-    plistData, error = (
-        NSPropertyListSerialization.
-        dataFromPropertyList_format_errorDescription_(
-            dataObject, NSPropertyListXMLFormat_v1_0, None))
-    if plistData is None:
-        if error:
-            error = error.encode('ascii', 'ignore')
-        else:
-            error = "Unknown error"
-        raise NSPropertyListSerializationException(error)
-    else:
-        if plistData.writeToFile_atomically_(filepath, True):
-            return
-        else:
-            raise NSPropertyListWriteException(
-                "Failed to write plist data to %s" % filepath)
-
-
-def ioreg():
-    """get UUID to find locationd plist with"""
-    cmd = ['/usr/sbin/ioreg', '-rd1', '-c', 'IOPlatformExpertDevice']
-    full_reg = subprocess.check_output(cmd)
-    reg_list = full_reg.split('\n')
-    for reg in reg_list:
-        if reg.startswith('      "IOPlatformUUID"'):
-            uuid = reg[26:-1]
+def get_hardware_uuid():
+    """Get the UUID of the computer"""
+    # IOKit Bundle Objective C code from Michael Lynn
+    # https://gist.github.com/pudquick/c7dd1262bd81a32663f0
+    uuid = ''
+    IOKit_bundle = NSBundle.bundleWithIdentifier_(
+        'com.apple.framework.IOKit')
+    functions = [("IOServiceGetMatchingService", b"II@"),
+                 ("IOServiceMatching", b"@*"),
+                 ("IORegistryEntryCreateCFProperty", b"@I@@I"), ]
+    IOKit = dict()
+    objc.loadBundleFunctions(IOKit_bundle, IOKit, functions)
+    # pylint:disable=F0401, E0602, W0232
+    uuid = IOKit['IORegistryEntryCreateCFProperty'](
+        IOKit['IOServiceGetMatchingService'](
+            0, IOKit['IOServiceMatching'](
+                'IOPlatformExpertDevice')), 'IOPlatformUUID', None, 0)
     return uuid
 
 
@@ -105,6 +116,12 @@ def root_check():
     """Check for sudo access"""
     if not os.geteuid() == 0:
         exit("This must be run with sudo")
+
+
+def os_vers():
+    """Retrieve OS version."""
+    maj_os_vers = platform.mac_ver()[0].split('.')[1]
+    return maj_os_vers
 
 
 def os_check():
@@ -116,21 +133,52 @@ def os_check():
 
 
 def sysprefs_boxchk():
-    """Enables location services in sysprefs globally"""
-    uuid = ioreg()
-    path_stub = ("/private/var/db/locationd/Library/Preferences/"
-                 "ByHost/com.apple.locationd.")
-    das_plist = path_stub + uuid.strip() + ".plist"
-    on_disk = readPlist(das_plist)
-    val = on_disk.get('LocationServicesEnabled', None)
-    if val != 1:
-        on_disk['LocationServicesEnabled'] = 1
-        writePlist(on_disk, das_plist)
+    """Enables location services in sysprefs globally."""
+    uuid = get_hardware_uuid()
+    prefdir = "/private/var/db/locationd/Library/Preferences/ByHost/"
+    if not os.path.exists(prefdir):
+        os.makedirs(prefdir)
+    das_plist = ("/private/var/db/locationd/Library/Preferences"
+                 "/ByHost/com.apple.locationd.{0}.plist".format(uuid.strip()))
+    bkup_plist = ("/private/var/db/locationd/Library/Preferences"
+                  "/ByHost/com.apple.locationd.notbackedup.{0}.plist".format(
+                   uuid.strip()))
+
+    # Use the offical Apple API for determining location services status
+    ls_status = CLLocationManager.locationServicesEnabled()
+    if ls_status is not True:
+        service_handler('unload')
+        cmd = ['/usr/bin/defaults', 'write', das_plist,
+               'LocationServicesEnabled', '-int', '1']
+        subprocess.check_output(cmd)
         os.chown(das_plist, 205, 205)
+
+        # 10.12 created a new 'notbackedup' file and although changing it
+        # is not necessary, we are making the change so it matches Apple's
+        # implementation.
+        if int(os_vers()) >= 12:
+            cmd = ['/usr/bin/defaults', 'write', bkup_plist,
+                   'LocationServicesEnabled', '-int', '1']
+            subprocess.check_output(cmd)
+            os.chown(bkup_plist, 205, 205)
+        service_handler('load')
+
+
+def kill_services():
+    """On 10.12, both the locationd and cfprefsd services like to not respect
+    preference changes so we force them to reload."""
+    proc = subprocess.Popen(['/usr/bin/killall', '-9', 'cfprefsd'],
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE)
+    proc = subprocess.Popen(['/usr/bin/killall', '-9', 'locationd'],
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE)
 
 
 def service_handler(action):
     """Loads or unloads System's location services launchd job"""
+    if action is 'load':
+        kill_services()
     launchctl = ['/bin/launchctl', action,
                  '/System/Library/LaunchDaemons/com.apple.locationd.plist']
     subprocess.check_output(launchctl)
@@ -138,16 +186,9 @@ def service_handler(action):
 
 def autoset_timezone():
     """Enable Set time zone automatically using current location"""
-    das_plist = '/Library/Preferences/com.apple.timezone.auto.plist'
-    enabler = dict()
-    try:
-        enabler = readPlist(das_plist)
-        val = enabler.get('Active')
-    except:
-        val = 0
-    if val != 1:
-        enabler['Active'] = 1
-    writePlist(enabler, das_plist)
+    auto_plist = '/Library/Preferences/com.apple.timezone.auto.plist'
+    cmd = ['/usr/bin/defaults', 'write', auto_plist, 'Active', '-int', '1']
+    subprocess.check_output(cmd)
 
 
 def timezone_lookup():
@@ -161,6 +202,12 @@ def timezone_lookup():
     pref = TimeZonePref.alloc().init()
     atzap.addObserver_forKeyPath_options_context_(pref, "enabled", 0, 0)
     result = pref._startAutoTimeZoneDaemon_(0x1)
+    # If this is not set to 1 then AutoTimezone still isn't enabled.
+    # This additional preference check makes this script work with 10.12
+    if pref.isTimeZoneAutomatic() is not 1:
+        return False
+    return True
+
 
 
 def enable_ntp():
@@ -180,7 +227,10 @@ def main():
     sysprefs_boxchk()
     service_handler('load')
     autoset_timezone()
-    timezone_lookup()
+    if timezone_lookup() is not True:
+        print ("Automatic Time Zone was not enabled or your machine"
+               "doesn't support properly this functionality")
+        sys.exit(1)
     # enable_ntp()
 
 if __name__ == '__main__':

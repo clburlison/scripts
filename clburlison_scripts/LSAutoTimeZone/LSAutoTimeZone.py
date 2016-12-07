@@ -32,66 +32,6 @@ from Foundation import NSPropertyListXMLFormat_v1_0
 NTP_SERVERS = ['time1.google.com', 'time.apple.com']
 
 
-# class FoundationPlistException(Exception):
-#     """Basic exception for plist errors"""
-#     pass
-#
-#
-# class NSPropertyListSerializationException(FoundationPlistException):
-#     """Read/parse error for plists"""
-#     pass
-#
-#
-# class NSPropertyListWriteException(FoundationPlistException):
-#     """Write error for plists"""
-#     pass
-#
-#
-# def readPlist(filepath):
-#     """
-#     Stolen from Munki FoundationPlist.py
-#     Read a .plist file from filepath.  Return the unpacked root object
-#     (which is usually a dictionary).
-#     """
-#     plistData = NSData.dataWithContentsOfFile_(filepath)
-#     dataObject, dummy_plistFormat, error = (
-#         NSPropertyListSerialization.
-#         propertyListFromData_mutabilityOption_format_errorDescription_(
-#             plistData, NSPropertyListMutableContainers, None, None))
-#     if dataObject is None:
-#         if error:
-#             error = error.encode('ascii', 'ignore')
-#         else:
-#             error = "Unknown error"
-#         errmsg = "%s in file %s" % (error, filepath)
-#         raise NSPropertyListSerializationException(errmsg)
-#     else:
-#         return dataObject
-#
-#
-# def writePlist(dataObject, filepath):
-#     """
-#     Stolen from Munki FoundationPlist.py
-#     Write 'rootObject' as a plist to filepath.
-#     """
-#     plistData, error = (
-#         NSPropertyListSerialization.
-#         dataFromPropertyList_format_errorDescription_(
-#             dataObject, NSPropertyListXMLFormat_v1_0, None))
-#     if plistData is None:
-#         if error:
-#             error = error.encode('ascii', 'ignore')
-#         else:
-#             error = "Unknown error"
-#         raise NSPropertyListSerializationException(error)
-#     else:
-#         if plistData.writeToFile_atomically_(filepath, True):
-#             return
-#         else:
-#             raise NSPropertyListWriteException(
-#                 "Failed to write plist data to %s" % filepath)
-
-
 def get_hardware_uuid():
     """Get the UUID of the computer"""
     # IOKit Bundle Objective C code from Michael Lynn
@@ -223,9 +163,7 @@ def main():
     """gimme some main"""
     root_check()
     os_check()
-    service_handler('unload')
     sysprefs_boxchk()
-    service_handler('load')
     autoset_timezone()
     if timezone_lookup() is not True:
         print ("Automatic Time Zone was not enabled or your machine"

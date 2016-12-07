@@ -8,7 +8,7 @@ This script has a bunch of stolen work from [@arubdesu](https://github.com/arubd
 1. Force a time zone location lookup at runtime
 1. Set correct date, time, and time zone
 
-You can optionally set NTP servers that by changing the `NTP_SERVERS` list and uncommenting `# enable_ntp()` on line 234.
+You can optionally set NTP servers that by changing the `NTP_SERVERS` list and uncommenting `# enable_ntp()` on line 172.
 
 ## Credits
 https://gist.github.com/arubdesu/b72585771a9f606ad800

@@ -1,15 +1,15 @@
 #!/usr/bin/python
-"""H/t to eholtam for posting in slack"""
 
-import json
-import os
+import json, os, pprint
 
-print("Personal: ")
 f = open(os.path.expanduser('~/.dropbox/info.json'), 'r').read()
 data = json.loads(f)
-print(data.get('personal', {}).get('path', '').replace('', 'None'))
 
-print("Business: ")
-f = open(os.path.expanduser('~/.dropbox/info.json'), 'r').read()
-data = json.loads(f)
-print(data.get('business', {}).get('path', '').replace('', 'None'))
+# To list all dropbox data
+pprint.pprint(data)
+print('')
+
+# Or to find just the paths
+for i in ['personal', 'business']:
+    print('{}:'.format(i.capitalize()))
+    print(data.get(i, {}).get('path', ''))

@@ -1,0 +1,1 @@
+This is a sample of parsing the `/usr/bin/last` command with python to get user session data.

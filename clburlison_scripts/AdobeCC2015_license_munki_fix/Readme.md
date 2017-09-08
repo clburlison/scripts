@@ -19,15 +19,15 @@ license_data
 0 directories, 4 files
 ```
 
-#Extras
+# Extras
 The munki_examples directory has a html descrition for the OnDemand Package. You will want to upload the "adobe-cc-signin-required.png" picture to a web server. Then modify the description.html with the URL. An example pkginfo for the license fix is also provided.
 
-#Make Options (aka usage)
+# Make Options (aka usage)
 
 * ``make`` (all) - clean working directories and build the package
 * ``make clean`` - clean working directories
 * ``make build`` - build the package
 * ``make import`` - clean working directories, build package, and import into munki 
 
-#Other Options 
+# Other Options 
 Tim Sutton has another solution located here: [make-adobe-cc-license-pkg](https://github.com/timsutton/make-adobe-cc-license-pkg). His project offers additional features that I didn't need. Both serve the same purpose.

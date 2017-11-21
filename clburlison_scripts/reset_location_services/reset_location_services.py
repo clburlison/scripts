@@ -1,60 +1,29 @@
 #!/usr/bin/python
-"""
-Reset location services to factory settings. Requires FoundationPlist
-which is installed by default with munki - https://github.com/munki/munki/releases.
+"""Reset location services to factory settings."""
 
-pinpoint also installs FoundationPlist - https://github.com/clburlison/pinpoint/releases.
-"""
-
-import sys
 import os
 import platform
 import subprocess
-import objc
 
 from distutils.version import LooseVersion
 
-from Foundation import NSBundle
-try:
-    sys.path.append('/usr/local/munki/munkilib/')
-    sys.path.append('/Library/Application Support/pinpoint/bin')
-    import FoundationPlist
-except ImportError as error:
-    print "Could not find FoundationPlist."
-    raise error
-
-# Retrieve system UUID
-IOKit_bundle = NSBundle.bundleWithIdentifier_('com.apple.framework.IOKit')
-
-functions = [("IOServiceGetMatchingService", b"II@"),
-             ("IOServiceMatching", b"@*"),
-             ("IORegistryEntryCreateCFProperty", b"@I@@I"),
-            ]
-
-objc.loadBundleFunctions(IOKit_bundle, globals(), functions)
-
-def io_key(keyname):
-    """Pythonic function to retrieve system info without a subprocess call."""
-    return IORegistryEntryCreateCFProperty(IOServiceGetMatchingService(0, \
-           IOServiceMatching("IOPlatformExpertDevice")), keyname, None, 0)
-
-def get_hardware_uuid():
-    """Returns the system UUID."""
-    return io_key("IOPlatformUUID")
 
 def root_check():
     """Check for root access."""
     if not os.geteuid() == 0:
         exit("This must be run with root access.")
 
+
 def os_vers():
     """Retrieve OS version."""
     return platform.mac_ver()[0]
+
 
 def os_check():
     """Only supported on 10.8+."""
     if not LooseVersion(os_vers()) >= LooseVersion('10.8'):
         exit("This tool only tested on 10.8+")
+
 
 def kill_services():
     """On 10.12, both the locationd and cfprefsd services like to not respect
@@ -66,6 +35,7 @@ def kill_services():
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE)
 
+
 def service_handler(action):
     """Loads/unloads System's location services job on supported OSs."""
     supported, current = LooseVersion('10.12.4'), LooseVersion(os_vers())
@@ -76,6 +46,7 @@ def service_handler(action):
         launchctl = ['/bin/launchctl', action,
                      '/System/Library/LaunchDaemons/com.apple.locationd.plist']
         subprocess.check_output(launchctl)
+
 
 def sysprefs_boxchk():
     """Disable location services in sysprefs globally."""
@@ -89,6 +60,7 @@ def sysprefs_boxchk():
                      'LocationServicesEnabled', '-bool', 'FALSE']
         subprocess.check_output(write_cmd)
 
+
 def clear_clients():
     """Clear clients.plist in locationd settings."""
     cmd = ['/usr/bin/sudo', '-u', '_locationd', '/usr/bin/defaults',
@@ -98,12 +70,14 @@ def clear_clients():
                             stderr=subprocess.PIPE)
     kill_services()
 
+
 def main():
     """Give main"""
     os_check()
     root_check()
     sysprefs_boxchk()
     clear_clients()
+
 
 if __name__ == '__main__':
     main()

@@ -79,36 +79,24 @@ def service_handler(action):
 
 def sysprefs_boxchk():
     """Disable location services in sysprefs globally."""
-    uuid = get_hardware_uuid()
-    perfdir = "/private/var/db/locationd/Library/Preferences/ByHost/"
-    if not os.path.exists(perfdir):
-        os.makedirs(perfdir)
-    path_stub = "/private/var/db/locationd/Library/Preferences/ByHost/com.apple.locationd."
-    das_plist = path_stub + uuid.strip() + ".plist"
-    try:
-        on_disk = FoundationPlist.readPlist(das_plist)
-    except:
-        plist = {}
-        FoundationPlist.writePlist(plist, das_plist)
-        on_disk = FoundationPlist.readPlist(das_plist)
-    val = on_disk.get('LocationServicesEnabled', None)
-    if val != 0:
-        service_handler('unload')
-        on_disk['LocationServicesEnabled'] = 0
-        FoundationPlist.writePlist(on_disk, das_plist)
-        os.chown(das_plist, 205, 205)
-        service_handler('load')
+    read_cmd = ['/usr/bin/sudo', '-u', '_locationd', '/usr/bin/defaults',
+                '-currentHost', 'read', 'com.apple.locationd',
+                'LocationServicesEnabled']
+    status = subprocess.check_output(read_cmd)
+    if int(status) != 0:
+        write_cmd = ['/usr/bin/sudo', '-u', '_locationd', '/usr/bin/defaults',
+                     '-currentHost', 'write', 'com.apple.locationd',
+                     'LocationServicesEnabled', '-bool', 'FALSE']
+        subprocess.check_output(write_cmd)
 
 def clear_clients():
     """Clear clients.plist in locationd settings."""
-    auth_plist = {}
-    das_plist = '/private/var/db/locationd/clients.plist'
-    clients_dict = FoundationPlist.readPlist(das_plist)
-    service_handler('unload')
-    clients_dict = auth_plist
-    FoundationPlist.writePlist(clients_dict, das_plist)
-    os.chown(das_plist, 205, 205)
-    service_handler('load')
+    cmd = ['/usr/bin/sudo', '-u', '_locationd', '/usr/bin/defaults',
+           'delete', '/private/var/db/locationd/clients.plist']
+    proc = subprocess.Popen(cmd,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE)
+    kill_services()
 
 def main():
     """Give main"""

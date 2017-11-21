@@ -12,9 +12,8 @@ import platform
 import subprocess
 import objc
 
-# PyLint cannot properly find names inside Cocoa libraries, so issues bogus
-# No name 'Foo' in module 'Bar' warnings. Disable them.
-# pylint: disable=E0611
+from distutils.version import LooseVersion
+
 from Foundation import NSBundle
 try:
     sys.path.append('/usr/local/munki/munkilib/')
@@ -50,13 +49,12 @@ def root_check():
 
 def os_vers():
     """Retrieve OS version."""
-    maj_os_vers = platform.mac_ver()[0].split('.')[1]
-    return maj_os_vers
+    return platform.mac_ver()[0]
 
 def os_check():
-    """Only tested on 10.8 - 10.12."""
-    if not 8 <= int(os_vers()) <= 12:
-        exit("This tool only tested on 10.8 - 10.12")
+    """Only supported on 10.8+."""
+    if not LooseVersion(os_vers()) >= LooseVersion('10.8'):
+        exit("This tool only tested on 10.8+")
 
 def kill_services():
     """On 10.12, both the locationd and cfprefsd services like to not respect
@@ -69,12 +67,15 @@ def kill_services():
                             stderr=subprocess.PIPE)
 
 def service_handler(action):
-    """Loads/unloads System's location services launchd job."""
-    if action is 'load':
-        kill_services()
-    launchctl = ['/bin/launchctl', action,
-                 '/System/Library/LaunchDaemons/com.apple.locationd.plist']
-    subprocess.check_output(launchctl)
+    """Loads/unloads System's location services job on supported OSs."""
+    supported, current = LooseVersion('10.12.4'), LooseVersion(os_vers())
+    if current < supported:
+        print("LaunchD for locationd supported")
+        if action is 'load':
+            kill_services()
+        launchctl = ['/bin/launchctl', action,
+                     '/System/Library/LaunchDaemons/com.apple.locationd.plist']
+        subprocess.check_output(launchctl)
 
 def sysprefs_boxchk():
     """Disable location services in sysprefs globally."""
